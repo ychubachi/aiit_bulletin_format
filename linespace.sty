@@ -1,0 +1,60 @@
+% n行取りを実現するマクロ
+% http://www.dab.hi-ho.ne.jp/t-wata/tex/multicol.html
+
+% \Chtと\Cdpを定義する
+\ifx \Cht \undefined                % もし\Chtが未定義なら
+ \newdimen\Cht\newdimen\Cdp         % \Chtと\Chpを作成
+ \setbox0\hbox{\char\jis"2121}    %"% JIS全角スペースをboxに設定
+ \Cht=\ht0\Cdp=\dp0                 % \Chtに高さと\Cdpに深さを設定する
+\fi
+
+% \linespaceを定義する
+\catcode`@=11                       % @のカテゴリーコード変更
+\long \def \linespace#1#2{          % #1:行数，#2:文字
+  \par \noindent                    % いらない？
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ #1              % \dimen@ *= #1
+  \advance \dimen@ -\baselineskip   % \dimen@ -= \baselineskip
+  \advance \dimen@ -\Cht            % \dimen@ -= \Cht (高さ)
+  \advance \dimen@ \Cdp             % \dimen@ += \Cdp (深さ)
+  \setbox0 \vbox{\noindent #2}      % #2をboxに配置する
+  \advance \dimen@ \ht0             % \dimen@ += box0の高さ
+  \advance \dimen@ -\dp0            % \dimen@ -= box0の深さ
+  \vtop to \z@{                     % \z@は0ptのdimen
+    \hbox{
+      %\vrule width\z@ height\Cht depth\z@
+      \vrule width 1pt height\Cht depth\z@
+      \raise -.5\dimen@             % 0.5 * dimen@だけ下げる
+      \hbox{\box0}                  % 文字を配置する
+    }
+    \vss                            % 垂直に伸びる空白？
+  }
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ #1              % \dimen@ *= #1
+  \advance \dimen@ -2\baselineskip  % \dimen@ -= 2 * \baselineskip
+  \par \nobreak
+  \vskip \dimen@                    % 垂直に\dimen@だけ開ける
+  \hbox{
+    %\vrule width\z@ height\Cht depth\z@
+    \vrule width 1pt height\Cht depth\z@
+  }
+  \vskip \z@
+}
+\catcode`@=12
+
+% \nlinesを定義する
+\catcode`@=11                       % @のカテゴリーコード変更
+\long \def \nlines #1{
+  \newdimen \mydimen
+  \setbox0 \vbox{\noindent #1}      % #2をboxに配置する
+  \mydimen = \ht0                   % \dimen@ += box0の高さ
+  \advance \mydimen \dp0            % \dimen@ -= box0の深さ
+  \newcount \lines                  % 必要な行数
+  \lines = 0
+  \loop                             % demenの割り算をループで
+    \advance \mydimen -\baselineskip
+    \advance \lines by 1
+    \ifnum \mydimen > 0 \repeat
+  \linespace{\the\lines}{#1}        % linespaceの呼び出し
+}
+\catcode`@=12

@@ -4,24 +4,42 @@
 %% 参考
 %% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf
 
+
+\usepackage{linespace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 基本版面
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 余白
+% ---------------------
+% 天（上余白）    | 30mm
+% 地（下余白）    | 18mm
+% ノド（内側余白）| 24mm
+% 小口（外側余白）| 18mm
+% ---------------------
+%
+% 版面（A4）
+% ------------
+% 幅   | 168mm
+% 高さ | 255.5mm
+% ------------
+% ※高さは\baselineskipの整数倍＋\topskipに補正し242mmほどになる．
+%   この補正により，footnoteの下側が揃う（しないとはみ出る）．
+
+\usepackage[
+  top=30truemm,	      % 天（上余白）
+  inner=24truemm,     % ノド（内側余白）
+  bottom=22.5truemm,  % 地（下余白）
+  outer=18truemm,     % 小口（外側余白）
+  heightrounded,      % ※高さの補正
+  dvipdfm]{geometry}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% パッケージ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage[dvipdfmx]{graphicx} % 図の取り込み(PDF対応)用
-% \usepackage[
-%   top=30truemm,          % 天（上余白）
-%   bottom=22.5truemm, % 地（下余白）
-%   inner=24truemm,        % ノド（内側余白）
-%   outer=18truemm,    % 小口（外側余白）
-%   dvipdfm]{geometry}
-\usepackage[
-  top=30truemm,          % 天（上余白）
-%  bottom=22.5truemm, % 地（下余白）
-  inner=24truemm,        % ノド（内側余白）
-%  outer=18truemm,    % 小口（外側余白）
-  includefoot, % フッターを含む
-  text={168truemm, 242.001truemm},
-  dvipdfm]{geometry}
 \pagestyle{empty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,7 +67,7 @@
   \begingroup
     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
     \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \setcounter{footnote}{1}%　footnote番号を1から開始します
+    \setcounter{footnote}{1}% footnote番号を1から開始します
     \long\def\@makefntext##1{\advance\leftskip 3zw
       \parindent 1zw\noindent
       \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
@@ -57,7 +75,7 @@
     \plainifnotempty
     \@thanks
   \endgroup
-  \setcounter{footnote}{0}%　footnote番号を初期化します
+  \setcounter{footnote}{0}% footnote番号を初期化します
   \global\let\thanks\relax
   \global\let\maketitle\relax
   \global\let\@thanks\@empty
@@ -72,23 +90,23 @@
     \let\footnote\thanks
     % 和文標題
     \ifx\@title\@undefined\else
-      {\LARGE \@title \par}
-      \vspace{\baselineskip}
+      \linespace{2}{\LARGE \@title \par}
+      %\vspace{\baselineskip}
     \fi
     % 和文著者名
     \ifx\@author\@undefined\else
-      {\Large \@author \par}
-      \vspace{\baselineskip}
+      \linespace{2}{\Large \@author \par}
+      %\vspace{\baselineskip}
     \fi
     % 英文標題
     \ifx\@etitle\@undefined\else
-      {\Large \@etitle \par}
-      \vspace{\baselineskip}
+      \linespace{2}{\Large \@etitle \par}
+      %\vspace{\baselineskip}
     \fi
     % 英文著者名
     \ifx\@eauthor\@undefined\else
-      {\large \@eauthor}
-      \vspace{\baselineskip}
+      \linespace{2}{\large \@eauthor}
+      %\vspace{\baselineskip}
     \fi
   \end{center}
   % 英文概要

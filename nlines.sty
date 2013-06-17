@@ -1,0 +1,89 @@
+% n行取りを実現するマクロ nlines
+%
+% 行取りのコードはこちらを参考にさせて頂きました．
+% http://www.dab.hi-ho.ne.jp/t-wata/tex/multicol.html
+
+% \Chtと\Cdpを定義する
+\ifx \Cht \undefined                % もし\Chtが未定義なら
+ \newdimen\Cht\newdimen\Cdp         % \Chtと\Chpを作成
+ \setbox0\hbox{\char\jis"2121}    %"% JIS全角スペースをboxに設定
+ \Cht=\ht0\Cdp=\dp0                 % \Chtに高さと\Cdpに深さを設定する
+\fi
+
+% \nlinesを定義する
+\catcode`@=11                       % @のカテゴリーコード変更
+\long \def \nlines #1{
+  % 必要な行数を計算する
+  \setbox0 \vbox{\noindent #1}      % #2をboxに配置する
+  \dimen@ = \ht0                    % \dimen@ += box0の高さ
+  \advance \dimen@ \dp0             % \dimen@ -= box0の深さ
+  \newcount \lines                  % 必要な行数
+  \loop                             % demenの割り算をループで実行する
+    \advance \dimen@ -\baselineskip
+    \advance \lines by 1
+    \ifnum \dimen@ > 0 \repeat
+
+  % 行取りをして表示する
+  \par \noindent                    % いらない？
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ \lines          % \dimen@ *= #1
+  \advance \dimen@ -\baselineskip   % \dimen@ -= \baselineskip
+  \advance \dimen@ -\Cht            % \dimen@ -= \Cht (高さ)
+  \advance \dimen@ \Cdp             % \dimen@ += \Cdp (深さ)
+  \advance \dimen@ \ht0             % \dimen@ += box0の高さ
+  \advance \dimen@ -\dp0            % \dimen@ -= box0の深さ
+  \vtop to \z@{                     % \z@は0ptのdimen
+    \hbox{
+      \vrule width\z@ height\Cht depth\z@
+                                    % 高さ\Chtの縦線
+      \raise -.5\dimen@             % 0.5 * dimen@だけ下げる
+      \hbox{\box0}                  % 文字を配置する
+    }
+    \vss                            % 垂直に伸びる空白（Overfulを防ぐ）
+  }
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ \lines          % \dimen@ *= #1
+  \advance \dimen@ -2\baselineskip  % \dimen@ -= 2 * \baselineskip
+  \par \nobreak                     %
+  \vskip \dimen@                    % 垂直に\dimen@だけ開ける
+  \hbox{
+    \vrule width\z@ height\Cht depth\z@
+                                    % 高さ\Chtの縦線
+  }
+  \vskip \z@                        %
+}
+\catcode`@=12
+
+% \linespaceを定義する
+\catcode`@=11                       % @のカテゴリーコード変更
+\long \def \linespace#1#2{          % #1:行数，#2:文字
+  \par \noindent                    % いらない？
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ #1              % \dimen@ *= #1
+  \advance \dimen@ -\baselineskip   % \dimen@ -= \baselineskip
+  \advance \dimen@ -\Cht            % \dimen@ -= \Cht (高さ)
+  \advance \dimen@ \Cdp             % \dimen@ += \Cdp (深さ)
+  \setbox0 \vbox{\noindent #2}      % #2をboxに配置する
+  \advance \dimen@ \ht0             % \dimen@ += box0の高さ
+  \advance \dimen@ -\dp0            % \dimen@ -= box0の深さ
+  \vtop to \z@{                     % \z@は0ptのdimen
+    \hbox{
+      \vrule width\z@ height\Cht depth\z@
+                                    % 高さ\Chtの縦線
+      \raise -.5\dimen@             % 0.5 * dimen@だけ下げる
+      \hbox{\box0}                  % 文字を配置する
+    }
+    \vss                            % 垂直に伸びる空白（Overfulを防ぐ）
+  }
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ #1              % \dimen@ *= #1
+  \advance \dimen@ -2\baselineskip  % \dimen@ -= 2 * \baselineskip
+  \par \nobreak
+  \vskip \dimen@                    % 垂直に\dimen@だけ開ける
+  \hbox{
+    \vrule width\z@ height\Cht depth\z@
+                                    % 高さ\Chtの縦線
+  }
+  \vskip \z@
+}
+\catcode`@=12

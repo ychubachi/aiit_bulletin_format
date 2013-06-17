@@ -4,9 +4,6 @@
 %% 参考
 %% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf
 
-
-\usepackage{linespace}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 基本版面
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,87 +37,160 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[dvipdfmx]{graphicx} % 図の取り込み(PDF対応)用
+\usepackage{nlines} % 行取り用パッケージ（自作）
+
 \pagestyle{empty}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% タイトルの定義
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %% タイトルの定義
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 英文表題を登録するための命令を定義します
-\newcommand*{\etitle}[1]{\gdef\@etitle{#1}}
-\newcommand*{\eauthor}[1]{\gdef\@eauthor{#1}}
+% % 概要とキーワードの横幅を指定します
+% \newlength{\abstractwidth}
+% %\setlength{\abstractwidth}{\textwidth}
+% \setlength{\abstractwidth}{0.8\textwidth}
+
+% % 英文表題を登録するための命令を定義します
 % \renewenvironment{abstract}
 %   {\global\setbox\@abstractbox\hbox\bgroup
 %    \begin{minipage}[b]
 %      {\abstractwidth}
-%      {\centerline{\large \textbf{Abstract}}\par} % 概要標題（Abstract）
-%      \vspace{\baselineskip}}
+%      \nlines{\centerline{\large \textbf{Abstract}}\par} % 概要標題（Abstract）
+%      %\vspace{\baselineskip}
+%     }
 %   {\end{minipage}\egroup}
-\newcommand*{\keywords}[1]{\gdef\@keywords{#1}}
+% \newcommand*{\keywords}[1]{\gdef\@keywords{#1}}
 
-% 概要とキーワードの横幅を指定します
-\newlength{\abstractwidth}
-\setlength{\abstractwidth}{\textwidth}%\setlength{\abstractwidth}{0.8\textwidth}
 
-% \maketitleを再定義します  
+% % \maketitleを再定義します  
+% \renewcommand{\maketitle}{\par
+%   \begingroup
+%     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+%     \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+%     \setcounter{footnote}{1}% footnote番号を1から開始します
+%     \long\def\@makefntext##1{\advance\leftskip 3zw
+%     \parindent 1zw\noindent
+%     \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
+%     \twocolumn[
+%       \@maketitle
+%       \vskip 0.5\topskip    % twocolumnで入る空白を調整
+%       \vskip \baselineskip
+%     ]%
+%     \plainifnotempty
+%     \@thanks
+%   \endgroup
+%   \setcounter{footnote}{0}% footnote番号を初期化します
+%   \global\let\thanks\relax
+%   \global\let\maketitle\relax
+%   \global\let\@thanks\@empty
+%   \global\let\@author\@empty
+%   \global\let\title\relax
+%   \global\let\author\relax
+%   \global\let\and\relax}
+
+% % 標題全体を出力します
+% \def\@maketitle{%
+%   \begin{center}
+%     \let\footnote\thanks
+%     % 和文標題
+%     \ifx\@title\@undefined\else
+%       \nlines{\LARGE \@title \par}
+%       \vspace{\baselineskip}
+%     \fi
+%     % 和文著者名
+%     \ifx\@author\@undefined\else
+%       \nlines{\Large \@author \par}
+%       \vspace{\baselineskip}
+%     \fi
+%     % 英文標題
+%     \ifx\@etitle\@undefined\else
+%       \nlines{\Large \@etitle \par}
+%       \vspace{\baselineskip}
+%     \fi
+%     % 英文著者名
+%     \ifx\@eauthor\@undefined\else
+%       \nlines{\large \@eauthor}
+%       %\vspace{\baselineskip}
+%     \fi
+%   \end{center}
+%   % 英文概要
+%   \ifx\@abstractbox\@undefined\else
+%     \nlines{\centerline{\box\@abstractbox}}
+%   \fi
+%   % 英文キーワード
+%   \ifx\@keywords\@undefined\else
+%     \nlines{\centerline{\parbox{\abstractwidth}{\textbf{Keywords:} \@keywords}}}
+%   \fi
+%   }
+
+% % 受付日を出力するための命令定義です
+% \newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
+% \newcommand*{\makereceivedon}{
+%   \footnotetext{\hspace{-4.5ex} Received on \@receivedon.}
+% }
+
+\newcommand*{\etitle}[1]{\gdef\@etitle{#1}}
+\newcommand*{\eauthor}[1]{\gdef\@eauthor{#1}}
+
 \renewcommand{\maketitle}{\par
   \begingroup
     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
     \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \setcounter{footnote}{1}% footnote番号を1から開始します
     \long\def\@makefntext##1{\advance\leftskip 3zw
       \parindent 1zw\noindent
       \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
-      \twocolumn[\@maketitle]%
+    \if@twocolumn % 二段組の場合
+      \ifnum \col@number=\@ne
+	\@maketitle
+      \else
+	\twocolumn[\@maketitle]% 一段組にして出力
+      \fi
+    \else         % 一段組の場合
+      \newpage
+      \global\@topnum\z@  % Prevents figures from going at top of page.
+      \@maketitle
+    \fi
     \plainifnotempty
     \@thanks
   \endgroup
-  \setcounter{footnote}{0}% footnote番号を初期化します
+  \setcounter{footnote}{0}%
   \global\let\thanks\relax
   \global\let\maketitle\relax
   \global\let\@thanks\@empty
   \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\@etitle\@empty % 追加
+  \global\let\@eauthor\@empty % 追加
   \global\let\title\relax
   \global\let\author\relax
-  \global\let\and\relax}
+  \global\let\date\relax
+  \global\let\etitle\relax % 追加
+  \global\let\eauthor\relax % 追加
+  \global\let\and\relax
+}
 
-% 標題全体を出力します
 \def\@maketitle{%
-  \begin{center}
+  \newpage\null
+  \vskip \baselineskip % 1行あき
+  \begin{center}%
     \let\footnote\thanks
-    % 和文標題
-    \ifx\@title\@undefined\else
-      \linespace{2}{\LARGE \@title \par}
-      %\vspace{\baselineskip}
-    \fi
-    % 和文著者名
-    \ifx\@author\@undefined\else
-      \linespace{2}{\Large \@author \par}
-      %\vspace{\baselineskip}
-    \fi
-    % 英文標題
-    \ifx\@etitle\@undefined\else
-      \linespace{2}{\Large \@etitle \par}
-      %\vspace{\baselineskip}
-    \fi
-    % 英文著者名
-    \ifx\@eauthor\@undefined\else
-      \linespace{2}{\large \@eauthor}
-      %\vspace{\baselineskip}
-    \fi
-  \end{center}
-  % 英文概要
-  \centerline{\box\@abstractbox}
-  \vspace{\baselineskip}
-  % 英文キーワード
-  \ifx\@keywords\@undefined\else
-    \centerline{\parbox{\abstractwidth}{\textbf{Keywords:} \@keywords}}
-  \fi
-  \vspace{\baselineskip}
-  }
-
-% 受付日を出力するための命令定義です
-\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
-\newcommand*{\makereceivedon}{
-  \footnotetext{\hspace{-4.5ex} Received on \@receivedon.}
+    {\LARGE \@title \par}%
+    \vskip 1.5em
+    {\large
+      \lineskip .5em
+      \begin{tabular}[t]{c}%
+	\@author
+      \end{tabular}\par}%
+    \vskip 1em
+    {\LARGE \@etitle \par}%
+    \vskip 1.5em
+    {\large
+      \lineskip .5em
+      \begin{tabular}[t]{c}%
+	\@eauthor
+      \end{tabular}\par}%
+  \end{center}%
+  \par\vskip 1.5em
+  \ifvoid\@abstractbox\else\centerline{\box\@abstractbox}\vskip1.5em\fi
 }

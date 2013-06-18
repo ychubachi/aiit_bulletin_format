@@ -12,19 +12,16 @@
 
 % \nlinesを定義する
 \catcode`@=11                       % @のカテゴリーコード変更
-\long \def \nlines #1{
-  % 必要な行数を計算する
-  \setbox0 \vbox{\noindent #1}      % #2をboxに配置する
+\long \def\nlines #1{
+  \par \noindent
+  \setbox0 \vbox{\noindent #1}%!!!  % #1をboxに配置する
   \dimen@ = \ht0                    % \dimen@ += box0の高さ
   \advance \dimen@ \dp0             % \dimen@ -= box0の深さ
-  \newcount \lines                  % 必要な行数
-  \loop                             % demenの割り算をループで実行する
+  \newcount \lines                  % 必要な行数 dimen@/baselineskip
+  \loop                             % 必要な行数を計算する
     \advance \dimen@ -\baselineskip
     \advance \lines by 1
-    \ifnum \dimen@ > 0 \repeat
-
-  % 行取りをして表示する
-  \par \noindent                    % いらない？
+    \ifnum \dimen@ > 0 \repeat      % demenの割り算をループで実行する
   \dimen@ = \baselineskip           % \dimen@ = \baselineskip
   \multiply \dimen@ \lines          % \dimen@ *= #1
   \advance \dimen@ -\baselineskip   % \dimen@ -= \baselineskip
@@ -33,11 +30,11 @@
   \advance \dimen@ \ht0             % \dimen@ += box0の高さ
   \advance \dimen@ -\dp0            % \dimen@ -= box0の深さ
   \vtop to \z@{                     % \z@は0ptのdimen
-    \hbox{
-      \vrule width\z@ height\Cht depth\z@
+    \hbox{%!!!                      %  ここの「%」必須！
+      \vrule width \z@ height\Cht depth\z@
                                     % 高さ\Chtの縦線
       \raise -.5\dimen@             % 0.5 * dimen@だけ下げる
-      \hbox{\box0}                  % 文字を配置する
+      \hbox{\box0}%!!!              % 文字を配置する
     }
     \vss                            % 垂直に伸びる空白（Overfulを防ぐ）
   }
@@ -55,35 +52,14 @@
 \catcode`@=12
 
 % \linespaceを定義する
-\catcode`@=11                       % @のカテゴリーコード変更
-\long \def \linespace#1#2{          % #1:行数，#2:文字
-  \par \noindent                    % いらない？
-  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
-  \multiply \dimen@ #1              % \dimen@ *= #1
-  \advance \dimen@ -\baselineskip   % \dimen@ -= \baselineskip
-  \advance \dimen@ -\Cht            % \dimen@ -= \Cht (高さ)
-  \advance \dimen@ \Cdp             % \dimen@ += \Cdp (深さ)
-  \setbox0 \vbox{\noindent #2}      % #2をboxに配置する
-  \advance \dimen@ \ht0             % \dimen@ += box0の高さ
-  \advance \dimen@ -\dp0            % \dimen@ -= box0の深さ
-  \vtop to \z@{                     % \z@は0ptのdimen
-    \hbox{
-      \vrule width\z@ height\Cht depth\z@
-                                    % 高さ\Chtの縦線
-      \raise -.5\dimen@             % 0.5 * dimen@だけ下げる
-      \hbox{\box0}                  % 文字を配置する
-    }
-    \vss                            % 垂直に伸びる空白（Overfulを防ぐ）
-  }
-  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
-  \multiply \dimen@ #1              % \dimen@ *= #1
-  \advance \dimen@ -2\baselineskip  % \dimen@ -= 2 * \baselineskip
-  \par \nobreak
-  \vskip \dimen@                    % 垂直に\dimen@だけ開ける
-  \hbox{
-    \vrule width\z@ height\Cht depth\z@
-                                    % 高さ\Chtの縦線
-  }
-  \vskip \z@
-}
+\catcode`@=11
+\long\def\linespace#1#2{\par\noindent
+  \dimen@=\baselineskip\multiply\dimen@ #1\advance\dimen@-\baselineskip
+  \advance\dimen@-\Cht\advance\dimen@\Cdp
+  \setbox0\vbox{\noindent #2}\advance\dimen@\ht0\advance\dimen@-\dp0%
+  \vtop to\z@{\hbox{\vrule width\z@ height\Cht depth\z@
+   \raise-.5\dimen@\hbox{\box0}}\vss}%
+  \dimen@=\baselineskip\multiply\dimen@ #1\advance\dimen@-2\baselineskip
+  \par\nobreak\vskip\dimen@\hbox{\vrule width\z@ height\Cht depth\z@}\vskip\z@}
 \catcode`@=12
+

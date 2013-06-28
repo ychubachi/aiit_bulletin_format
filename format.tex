@@ -1,7 +1,6 @@
-% maketitleすると，footerの下部がずれてしまう．
-% 10pt ok, 12pt ok, 13pt ok, 14pt NG, 
-% 
-
+% maketitleすると，footerの下部がずれてしまう現象について．
+% 12Q ok, 13Q ok, 14Q ok
+% 9pt NG, 10pt ok, 12pt ok, 13pt ok, 14pt NG, 17pt以上 未調査
 \documentclass[a4j, 12Q, twocolumn, twoside, draft]{jsarticle}
 
 \usepackage{aiitbulletin}
@@ -10,20 +9,21 @@
 \title{パイポパイポパイポのシューリンガングーリンダイの
 ポンポコピーのポンポコナーの長久命の長
 }
-\author{著者 \thanks{AIIT}, 著者 \thanks{TMU}}
+\author{中鉢　欣秀 \thanks{AIIT}, 産技　花子 \thanks{TMU}}
 \etitle{English Title}
-\eauthor{English Author}
+\eauthor{Taro Sangi Sangi Hanako \thanks{AIIT}}
 \keywords{AIIT, bulletin, 2013}
 \begin{abstract}
-寿限無寿限無五劫の摺り切れ海砂利水魚の水
-行末雲来末風来末．食う寝る所に住む所藪柑子ブラコウジ．パイポパイポパイ
-ポのシューリンガングーリンダイのポンポコピーのポンポコナーの長久命の長
-助．
+ この文書では\LaTeX の新クラスファイルを基に作成したスタイルファイルに
+ ついて述べる．日本語のレイアウトに欠かせない「行取り」のマクロを追加し，
+ 二段組の左右の行が揃うことをより徹底した．また，英文の表題，著者名，概
+ 要，キーワードを出力できるようにした．標準的なクラスファイルに最低限
+ の拡張を施し，より美しく，実用的なレイアウトを実現することを狙う．
 \end{abstract}
 \begin{document}
 
 %＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-%\maketitle
+\maketitle
 \section{はじめに}
 \subsection{版面}
 A4用紙縦．
@@ -33,19 +33,26 @@ A4用紙縦．
 ポのシューリンガングーリンダイのポンポコピーのポンポコナーの\underline{長久命の長}
 }．
 
-
-\section{つぎに}
-
 余白は天（上部）30mm，地（22.5mm），ノド（内側）24mm，小口(18mm)をとる
 こと．
 製本時，余白には表題やページ番号が入る．
 
+\subsection{\LaTeX における設定}
+
+あああ
+
+著者と著者の間隔．thanksのマーク．
+
+\section{行取りマクロの利用方法}
+
 \linespace{3} {\Large ああああああああああああああああああああああああああ}
 
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．
+\nlines{http://www.dab.hi-ho.ne.jp/t-wata/tex/multicol.html}
 
-パイポパイポパイポのシューリンガングーリンダイ
+のポンポコピーのポンポコナーの長久命の長助．
+
+のポンポコピーのポンポコナーの長久命の長助．
+
 のポンポコピーのポンポコナーの長久命の長助．
 
 寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
@@ -64,15 +71,14 @@ A4用紙縦．
 住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
 のポンポコピーのポンポコナーの長久命の長助．
 
-基本的に，左右の段の行は揃える．しかし，
+基本的に，左右の段の行は揃える．行取りをするマクロ\texttt{\\nlines}を
+用意した．
 
-\linespace{3}{
+\nlines{
 \begin{eqnarray}
 a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
 \end{eqnarray} 
 }
-
-% 数式を入れるとずれてしまう．
 
 寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
 住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ

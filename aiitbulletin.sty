@@ -48,79 +48,111 @@
 %% タイトルの定義
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 概要とキーワードの横幅を指定します
+% 概要とキーワードの横幅を指定
 \newlength{\abstractwidth}
 \setlength{\abstractwidth}{46zw} % 56字-5字-5字=46字
 
-% 概要を登録するための命令を定義します
+\newcommand*{\keywords}[1]{\gdef\@keywords{#1}}	% キーワード
+\newcommand*{\etitle}[1]{\gdef\@etitle{#1}}	% 英文表題
+\newcommand*{\eauthor}[1]{\gdef\@eauthor{#1}}	% 英文著者名
+
+%% 概要を登録するための命令を定義
 \renewenvironment{abstract}
-  % 概要の開始
-  {\global\setbox\@abstractbox\hbox\bgroup % \egroupまでをboxに登録
-   \begin{minipage}[b]{\abstractwidth} % ミニページの幅を設定します
-    }
-  % 概要の終了
-  {\end{minipage}\egroup}
-\newcommand*{\keywords}[1]{\gdef\@keywords{#1}}
+  %% 概要環境の開始
+  {
+    \global\setbox\@abstractbox\hbox\bgroup % 次の\egroupまでをboxに登録
+    \begin{minipage}[b]{\abstractwidth} % ミニページの幅を設定
+    \nlines{\large\centering \textbf{Abstract}\par} % 概要の表題
+  }
+  %% 概要環境の終了
+  {
+    \end{minipage}\egroup
+  }
 
-
-% \maketitleを再定義します  
+%
+% \maketitleを再定義します
+%
 \renewcommand{\maketitle}{\par
   \begingroup
-    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \setcounter{footnote}{1}% footnote番号を1から開始します
-    \long\def\@makefntext##1{\advance\leftskip 3zw
-    \parindent 1zw\noindent
-    \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
+    %% thanksのためのfootnoteの書式
+    \setcounter{footnote}{1}		% thanksの番号を1(=2)から開始
+    \renewcommand\thefootnote{\@fnsymbol\c@footnote} % 番号の書式
+    %% 表題につけるマークの書式
+    \def\@makefnmark{%
+      \rlap{%!!				% 右側の文字に重ね書き
+        \@textsuperscript{\normalfont\@thefnmark}
+      }%!!
+      \hskip 1zw			% 右側に空白文字
+    }
+    %% 脚注につけるマークの書式
+    \long\def\@makefntext##1{
+      \advance\leftskip 3zw		% fnの左余白
+      \parindent 1zw\noindent
+      \llap{				% 左側の文字に重ね書き
+        %% footnoteの出力
+        \@textsuperscript{		% 上付き文字
+	  \normalfont\@thefnmark}%!!	% マークの出力
+	  \hskip0.3zw}%!!		% マークと内容の間隔
+	##1				% 内容
+      }
+    %% タイトルを出力
     \twocolumn[
-      \@maketitle
-    ]%
-    \plainifnotempty
-    \@thanks
+      \@maketitle			% タイトルを出力
+      \vskip 0.5\baselineskip		% ※twocolumn後の空白を調整
+    ]
+    \@thanks % 所属をfootnoteに出力
+    %% footnote番号の設定
+    \setcounter{footnote}{0}		% footnote番号を再初期化します
+    %% ページ番号の制御
+    \plainifnotempty			% ページ番号の出力を設定
   \endgroup
-  \setcounter{footnote}{0}% footnote番号を初期化します
   \global\let\thanks\relax
   \global\let\maketitle\relax
   \global\let\@thanks\@empty
   \global\let\@author\@empty
+  \global\let\@etitle\@empty		% 英文表題の変数を空にする
+  \global\let\@eauthor\@empty		% 英文著者名の変数を空にする
   \global\let\title\relax
   \global\let\author\relax
+  \global\let\etitle\relax		% 英文表題の命令を削除する
+  \global\let\eauthor\relax		% 英文著者名の命令を削除する
   \global\let\and\relax}
 
 % 標題全体を出力します
 \def\@maketitle{%
-  \let\footnote\thanks % ??
-  \vskip\baselineskip % 1行あき
+  \let\footnote\thanks			% TODO: いらない？
   \begin{center}
-    % 和文標題
+    %% 和文標題
     \ifx\@title\@undefined\else
+      \vskip\baselineskip % 1行あき
       \nlines{\LARGE \@title \par}
-      \vskip\baselineskip % 1行あき
     \fi
-    % 和文著者名
+    %Y 和文著者名
     \ifx\@author\@undefined\else
+      \vskip\baselineskip % 1行あき
       \nlines{\Large \@author \par}
-      \vskip\baselineskip % 1行あき
     \fi
-    % 英文標題
+    %% 英文標題
     \ifx\@etitle\@undefined\else
+      \vskip\baselineskip % 1行あき
       \nlines{\LARGE \@etitle \par}
-      \vskip\baselineskip % 1行あき
     \fi
-    % 英文著者名
+    %% 英文著者名
     \ifx\@eauthor\@undefined\else
-      \nlines{\large \@eauthor}
       \vskip\baselineskip % 1行あき
+      \nlines{\large \@eauthor}
     \fi
-    % 概要
+    %% 概要
     \ifx\@abstractbox\@undefined\else
-      \nlines{\large \textbf{Abstract}\par} % 概要の表題
+      \vskip\baselineskip % 1行あき
       \nlines{\box\@abstractbox} % 概要の内容
     \fi
-    % キーワード
+    %% キーワード
     \ifx\@keywords\@undefined\else
-      \nlines{{\parbox{\abstractwidth}
-              {\textbf{Keywords:} \@keywords}}}
+      \nlines{
+        \parbox
+          {\abstractwidth}
+          {\textbf{Keywords:} \@keywords}}
     \fi
   \end{center}
 }
@@ -131,68 +163,12 @@
 %   \footnotetext{\hspace{-4.5ex} Received on \@receivedon.}
 % }
 
-\newcommand*{\etitle}[1]{\gdef\@etitle{#1}}
-\newcommand*{\eauthor}[1]{\gdef\@eauthor{#1}}
-
-% \renewcommand{\maketitle}{\par
-%   \begingroup
-%     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-%     \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-%     \long\def\@makefntext##1{\advance\leftskip 3zw
-%       \parindent 1zw\noindent
-%       \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
-%     \if@twocolumn % 二段組の場合
-%       \ifnum \col@number=\@ne
-% 	\@maketitle
-%       \else
-% 	\twocolumn[\@maketitle]% 一段組にして出力
-%       \fi
-%     \else         % 一段組の場合
-%       \newpage
-%       \global\@topnum\z@  % Prevents figures from going at top of page.
-%       \@maketitle
-%     \fi
-%     \plainifnotempty
-%     \@thanks
-%   \endgroup
-%   \setcounter{footnote}{0}%
-%   \global\let\thanks\relax
-%   \global\let\maketitle\relax
-%   \global\let\@thanks\@empty
-%   \global\let\@author\@empty
-%   \global\let\@date\@empty
-%   \global\let\@title\@empty
-%   \global\let\@etitle\@empty % 追加
-%   \global\let\@eauthor\@empty % 追加
-%   \global\let\title\relax
-%   \global\let\author\relax
-%   \global\let\date\relax
-%   \global\let\etitle\relax % 追加
-%   \global\let\eauthor\relax % 追加
-%   \global\let\and\relax
-% }
-
-% \def\@maketitle{%
-%   \newpage\null
-%   \vskip \baselineskip % 1行あき
-%   \begin{center}%
-%     \let\footnote\thanks
-%     {\LARGE \@title \par}%
-%     \vskip 1.5em
-%     {\large
-%       \lineskip .5em
-%       \begin{tabular}[t]{c}%
-% 	\@author
-%       \end{tabular}\par}%
-%     \vskip 1em
-%     {\LARGE \@etitle \par}%
-%     \vskip 1.5em
-%     {\large
-%       \lineskip .5em
-%       \begin{tabular}[t]{c}%
-% 	\@eauthor
-%       \end{tabular}\par}%
-%   \end{center}%
-%   \par\vskip 1.5em
-%   \ifvoid\@abstractbox\else\centerline{\box\@abstractbox}\vskip1.5em\fi
-% }
+%%
+%% \thanksのマークだけを出力するコマンド
+%%
+\newcommand{\thanksmark}[1][1]{
+  \newcount \n
+  \n = #1
+  \advance \n by 1
+  \footnotemark[\n]
+}

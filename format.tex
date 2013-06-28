@@ -2,7 +2,7 @@
 % 12Q ok, 13Q ok, 14Q ok
 % 9pt NG, 10pt ok, 12pt ok, 13pt ok, 14pt NG, 17pt以上 未調査
 \documentclass[a4j, 12Q, twocolumn, twoside, draft]{jsarticle}
-\usepackage{aiitpaper}
+\usepackage{ajsarticle}
 
 %% 必要に応じてパッケージやマクロをここに追加してください
 %\usepackage[dvipdfmx]{graphicx} % 図の取り込み(PDF対応)用
@@ -35,7 +35,7 @@ Industrial Technology} 産技 花子
 \maketitle
 \section{はじめに}
  この文書では\LaTeX の新クラスファイルを基に作成したスタイルファイル
- \texttt{aiitjsarticle} について述べる．日本語のレイアウトに欠かせない
+ \texttt{ajsarticle} について述べる．日本語のレイアウトに欠かせない
  「行取り」のマクロを追加し，二段組の左右の行が揃うことをより徹底した．
  また，英文の表題，著者名，概要，キーワードを出力できるようにした．標準
  的なクラスファイルに最低限の拡張を施し，より美しく，実用的なレイアウト
@@ -92,7 +92,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 \url{http://www.dab.hi-ho.ne.jp/t-wata/tex/multicol.html}の記事を参考に
 した．
 
-
+\section{Dummy Text}
 寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
 住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
 のポンポコピーのポンポコナーの長久命の長助．
@@ -113,7 +113,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 \noindent
 １２３４５６７８９０
 １２３４５６７８９０
-１２３４５６７８９０
+１２３４５６７%８９０
 
 寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
 住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
@@ -130,8 +130,6 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 
 
 \section{ははは}
-ああああ
-
 寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
 住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
 のポンポコピーのポンポコナーの長久命の長助．
@@ -155,16 +153,26 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 ここまで\footnote{当然，ここも\underline{左右が揃う}．}．
 
 \newpage
-\noindent １\par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
+\noindent １２３４５６７８９０
+１２３４５６７８９０
+１２３４５６７%８９０
+\par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
 \noindent ６\par \noindent ７\par \noindent ８\par \noindent ９\par \noindent ０\par
-\noindent １１\par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
-\noindent ６\par \noindent ７\par \noindent ８\par \noindent ９\par \noindent ０\par
-\noindent ２１\par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
-\noindent ６\par \noindent ７\par \noindent ８\par \noindent ９\par \noindent ０\par
-\noindent ３１\par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
-\noindent ６\par \noindent ７\par \noindent ８\par \noindent ９\par \noindent ０\par
-\noindent ４１\par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
-\noindent ６\par \noindent ７\underline{□□□□□} %\par \noindent ８\par \noindent ９\par \noindent ０\par
-%\noindent １\par %\noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
+\noindent １１\par \noindent １２\par \noindent １３\par \noindent １
+４\par \noindent １５\par
+\noindent １６\par \noindent １７\par \noindent １８\par \noindent １
+９\par \noindent ２０\par
+\noindent ２１\par \noindent ２２\par \noindent ２３\par \noindent ２
+４\par \noindent ２５\par
+\noindent ２６\par \noindent ２７\par \noindent ２８\par \noindent ２
+９\par \noindent ３０\par
+\noindent ３１\par \noindent ３２\par \noindent ３３\par \noindent ３
+４\par \noindent ３５\par
+\noindent ３６\par \noindent ３７\par \noindent ３８\par \noindent ３
+９\par \noindent ４０\par
+\noindent ４１\par \noindent ４２\par \noindent ４３\par \noindent ４
+４\par \noindent ４５\par
+\noindent ４６\par \noindent ４７\underline{□□□□□}\par
+%\noindent ４８\par \noindent ９\par \noindent ５０\par
 
 \end{document}

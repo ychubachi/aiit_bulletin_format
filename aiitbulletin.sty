@@ -50,17 +50,15 @@
 
 % 概要とキーワードの横幅を指定します
 \newlength{\abstractwidth}
-%\setlength{\abstractwidth}{\textwidth}
-\setlength{\abstractwidth}{0.8\textwidth}
+\setlength{\abstractwidth}{46zw} % 56字-5字-5字=46字
 
-% 英文表題を登録するための命令を定義します
+% 概要を登録するための命令を定義します
 \renewenvironment{abstract}
-  {\global\setbox\@abstractbox\hbox\bgroup
-   \begin{minipage}[b]
-     {\abstractwidth}
-     \nlines{\centerline{\large \textbf{Abstract}}\par} % 概要標題（Abstract）
-     %\vspace{\baselineskip}
+  % 概要の開始
+  {\global\setbox\@abstractbox\hbox\bgroup % \egroupまでをboxに登録
+   \begin{minipage}[b]{\abstractwidth} % ミニページの幅を設定します
     }
+  % 概要の終了
   {\end{minipage}\egroup}
 \newcommand*{\keywords}[1]{\gdef\@keywords{#1}}
 
@@ -76,8 +74,6 @@
     \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
     \twocolumn[
       \@maketitle
-      \vskip 0.5\baselineskip % 8pt
-      %\vskip 6pt % 6truept?
     ]%
     \plainifnotempty
     \@thanks
@@ -93,41 +89,41 @@
 
 % 標題全体を出力します
 \def\@maketitle{%
+  \let\footnote\thanks % ??
+  \vskip\baselineskip % 1行あき
   \begin{center}
-    \let\footnote\thanks
     % 和文標題
     \ifx\@title\@undefined\else
       \nlines{\LARGE \@title \par}
-      \vspace{0.5\baselineskip}
+      \vskip\baselineskip % 1行あき
     \fi
     % 和文著者名
     \ifx\@author\@undefined\else
       \nlines{\Large \@author \par}
-      \vspace{\baselineskip}
+      \vskip\baselineskip % 1行あき
     \fi
     % 英文標題
     \ifx\@etitle\@undefined\else
-      \nlines{\Large \@etitle \par}
-      \vspace{0.5\baselineskip}
+      \nlines{\LARGE \@etitle \par}
+      \vskip\baselineskip % 1行あき
     \fi
     % 英文著者名
     \ifx\@eauthor\@undefined\else
       \nlines{\large \@eauthor}
-      %\vspace{\baselineskip}
+      \vskip\baselineskip % 1行あき
+    \fi
+    % 概要
+    \ifx\@abstractbox\@undefined\else
+      \nlines{\large \textbf{Abstract}\par} % 概要の表題
+      \nlines{\box\@abstractbox} % 概要の内容
+    \fi
+    % キーワード
+    \ifx\@keywords\@undefined\else
+      \nlines{{\parbox{\abstractwidth}
+              {\textbf{Keywords:} \@keywords}}}
     \fi
   \end{center}
-  % 英文概要
-  % TODO: 表題を直接書く
-  \ifx\@abstractbox\@undefined\else
-    \nlines{\centerline{\box\@abstractbox}}
-  \fi
-
-
-  % 英文キーワード
-  \ifx\@keywords\@undefined\else
-    \nlines{\centerline{\parbox{\abstractwidth}{\textbf{Keywords:} \@keywords}}}
-  \fi
-  }
+}
 
 % % 受付日を出力するための命令定義です
 % \newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}

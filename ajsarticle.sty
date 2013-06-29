@@ -1,9 +1,6 @@
 %% advanced-jsarticleスタイル定義
 %% Y.Chubachi 2012,2013
 
-%% 参考
-%% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% パッケージ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,24 +43,8 @@
 %% 概要・キーワードの横幅を設定
 \setlength{\abstractwidth}{46zw} % 56字-5字-5字=46字
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ページ番号
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \pagestyle{empty}
 
-% % 受付日を出力するための命令定義です
-% \newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
-% \newcommand*{\makereceivedon}{
-%   \footnotetext{\hspace{-4.5ex} Received on \@receivedon.}
-% }
-
-%%
-%% \thanksのマークだけを出力するコマンド
-%%
-\newcommand{\thanksmark}[1][1]{
-  \newcount \n
-  \n = #1
-  \advance \n by 1
-  \footnotemark[\n]
-}
+%% 参考
+%% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf

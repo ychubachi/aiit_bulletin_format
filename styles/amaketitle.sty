@@ -21,15 +21,6 @@
     \end{minipage}\egroup
   }
 
-% 受付日を出力するための命令定義
-\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
-\newcommand*{\makereceivedon}{
-  \begingroup
-    \renewcommand\thefootnote{} % 番号の書式を付けない
-    \footnotetext{Received on \@receivedon.}
-  \endgroup
-}
-
 %
 % \maketitleを再定義
 %
@@ -114,4 +105,13 @@
 %% \thanksのマークだけを出力するコマンド
 \newcommand{\thanksmark}[1][1]{%!!
   \footnotemark[#1]
+}
+
+% 受付日を出力するための命令定義
+\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
+\newcommand*{\makereceivedon}{
+  \begingroup
+    \renewcommand\thefootnote{} % 番号の書式を付けない
+    \footnotetext{Received on \@receivedon.}
+  \endgroup
 }

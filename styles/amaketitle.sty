@@ -36,17 +36,6 @@
       }%!!
       \hskip 1zw			% 右側に空白文字
     }
-    %% 脚注につけるマークの書式
-    \long\def\@makefntext##1{
-      \advance\leftskip 3zw		% fnの左余白
-      \parindent 1zw\noindent
-      \llap{				% 左側の文字に重ね書き
-        %% footnoteの出力
-        \@textsuperscript{		% 上付き文字
-	  \normalfont\@thefnmark}%!!	% マークの出力
-	  \hskip0.3zw}%!!		% マークと内容の間隔
-	##1				% 内容
-      }
     %% タイトルを出力
     \twocolumn[
       \@maketitle			% タイトルを出力

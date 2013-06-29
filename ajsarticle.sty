@@ -131,33 +131,35 @@
     %% 和文標題
     \ifx\@title\@undefined\else
       \vskip\baselineskip % 1行あき
-      \LARGE \@title \par
+      \nlines{\LARGE \@title \par}
     \fi
     %Y 和文著者名
     \ifx\@author\@undefined\else
       \vskip\baselineskip % 1行あき
-      \Large \@author \par
+      \nlines{\Large \@author \par}
     \fi
     %% 英文標題
     \ifx\@etitle\@undefined\else
       \vskip\baselineskip % 1行あき
-      \LARGE \@etitle \par
+      \nlines{\LARGE \@etitle \par}
     \fi
     %% 英文著者名
     \ifx\@eauthor\@undefined\else
       \vskip\baselineskip % 1行あき
-      \large \@eauthor
+      \nlines{\large \@eauthor}
     \fi
     %% 概要
     \ifx\@abstractbox\@undefined\else
       \vskip\baselineskip		% 1行あき
-      \centerline{\box\@abstractbox}	% 概要の内容
+      \nlines{\centerline{\box\@abstractbox}}	% 概要の内容
     \fi
     %% キーワード
     \ifx\@keywords\@undefined\else
-      \parbox
-        {\abstractwidth}
-        {\textbf{Keywords:} \@keywords}
+      \nlines{%!!
+        \parbox
+          {\abstractwidth}
+          {\textbf{Keywords:} \@keywords}
+      }
     \fi
   \end{center}
 }

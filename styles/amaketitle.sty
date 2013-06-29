@@ -27,9 +27,8 @@
 \renewcommand{\maketitle}{\par
   \begingroup
     %% thanksのためのfootnoteの書式
-    \setcounter{footnote}{1}		% thanksの番号を1(=2)から開始
-    \renewcommand\thefootnote{\@fnsymbol\c@footnote} % 番号の書式
     %% 表題につけるマークの書式
+    \renewcommand\thefootnote{\arabic{footnote})} % 番号の書式 ex: 1)
     \def\@makefnmark{%
       \rlap{%!!				% 右側の文字に重ね書き
         \@textsuperscript{\normalfont\@thefnmark}
@@ -97,4 +96,9 @@
       }
     \fi
   \end{center}
+}
+
+%% \thanksのマークだけを出力するコマンド
+\newcommand{\thanksmark}[1][1]{%!!
+  \footnotemark[#1]
 }

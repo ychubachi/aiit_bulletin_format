@@ -31,13 +31,13 @@
 }
 
 %
-% \maketitleを再定義します
+% \maketitleを再定義
 %
 \renewcommand{\maketitle}{\par
   \begingroup
     %% thanksのためのfootnoteの書式
-    %% 表題につけるマークの書式
     \renewcommand\thefootnote{\arabic{footnote})} % 番号の書式 ex: 1)
+    %% 著者名で所属を参照する記号の書式
     \def\@makefnmark{%
       \rlap{%!!				% 右側の文字に重ね書き
         \@textsuperscript{\normalfont\@thefnmark}

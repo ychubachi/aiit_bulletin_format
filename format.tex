@@ -1,13 +1,14 @@
 % maketitleすると，footerの下部がずれてしまう現象について．
 % 12Q ok, 13Q ok, 14Q ok
 % 9pt NG, 10pt ok, 12pt ok, 13pt ok, 14pt NG, 17pt以上 未調査
-\documentclass[a4j, 12Q, twocolumn, twoside, draft]{jsarticle}
+\documentclass[a4j, 12Q, twocolumn, twoside]{jsarticle}
 \usepackage{ajsarticle}
 
 %% 必要に応じてパッケージやマクロをここに追加してください
 %\usepackage[dvipdfmx]{graphicx} % 図の取り込み(PDF対応)用
 \usepackage{url}
 \newcommand{\cmd}[1]{\texttt{\symbol{"5C}#1}} %"
+\usepackage{layout}
 
 \title{\LaTeX の新クラスファイル\texttt{jsarticle}を拡張した\\
 論文向けスタイルパッケージ
@@ -28,47 +29,40 @@ Industrial Technology} 産技 花子
 \end{abstract}
 \keywords{AIIT, bulletin, 2013}
 
-
 \begin{document}
 
 %＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 \maketitle
 \section{はじめに}
  この文書では\LaTeX の新クラスファイルを基に作成したスタイルファイル
- \texttt{ajsarticle} について述べる．日本語のレイアウトに欠かせない
- 「行取り」のマクロを追加し，二段組の左右の行が揃うことをより徹底した．
- また，英文の表題，著者名，概要，キーワードを出力できるようにした．標準
- 的なクラスファイルに最低限の拡張を施し，より美しく，実用的なレイアウト
- を実現することを狙う．
+ \texttt{ajsarticle} について述べる．論文のスタイルとして一般的な，タ
+ イトル1段組，本文は左右2段組に対応している．
+
+\texttt{ajsarticle}では和文に加えて英文の表題，著者名と，概要，キーワー
+ ドを出力できるようにした．また，明示的に「行取り」のマクロ
+ \cmd{nlines}を追加し，二段組の左右の行が揃うことをより徹底した
+ \footnote{脚注を用いても\underline{行の下側が左右の段で揃う．}}．
+
+ 標準的なクラスファイルに最低限の拡張を施し，より美しく，実用的なレイア
+ ウトを実現することを狙う．
 \section{スタイルの定義}
-\subsection{基本版面}
-A4用紙縦．
-文字12Q（8.5pt）
-二段組，1行27文字，段間2文字（$27 \times 2 + 2 = 56$文字）．
-行数47行，行間75\%（行送り175\%）
-．
-
-余白は天（上部）30mm，地（22.5mm），ノド（内側）24mm，小口(18mm)をとる
-こと．
-製本時，余白には表題やページ番号が入る．
-
-\subsection{\LaTeX における設定}
-
-\texttt{geometory}パッケージで設定．
-高さの補正\footnote{補正により，脚注を用いても
- \underline{行の下側が左右の段で揃う．}}．
-
 \subsection{英文表題}
 
-\cmd{etitle}，\cmd{eauthor}，\cmd{keywords}を追加した．
+英文の表題とキーワードのために，\cmd{etitle}，\cmd{eauthor}，
+\cmd{keywords}コマンドを追加した．\cmd{maketitle}を用いることでこれら
+を含むタイトルを出力できる．なお，\texttt{jsarticle}が標準で備える
+\cmd{maketitle}を完全に再定義しているので，1段組には対応していない．
 
 著者名に所属を記載する場合は\cmd{thanks}を使う．また，英文の著者名で所
-属を参照するための記号を出力するために\cmd{thanksmark} コマンドを定義し
-た．
+属を参照する\cmd{thanksmark} コマンドを定義した．所属は脚注に出力され
+る．
 
 \subsection{行取りマクロの利用方法}
-左右の段の行を揃えるために，行取りをするマクロ\cmd{nlines}を作成した．
-これを数式に対して使用すると次の通りになる．
+行取りとは，文字以外の図や数式を配置する際，上下の空白を調整して行数に
+揃えることである．\texttt{jsarticle}は基本的には自動で行取りを行なって
+くれるが，それでも時々ずれることがある．そこで，明示的に行取りを指定す
+るマクロ\cmd{nlines}を作成した．数式に対して\cmd{nlines}を使用した例を
+以下に示す．
 
 \nlines{
   \begin{eqnarray}
@@ -76,13 +70,43 @@ A4用紙縦．
   \end{eqnarray} 
 }
 
-このように，数式の上下の空白を調整し，左右の段で行が揃うようにする．
+自動的に3行取りが行われ，数式を出力したあとでも左右の段で行が揃ってい
+ることが分かる．必要に応じて利用して欲しい．
 
-%\nlines{\LARGE 大きなフォントを設定しても大丈夫．自動的に3行取りになる．}
+\subsection{版面と余白の設置}
+日本語を主体とする文書の場合，まず版面のサイズを計算する．文字の大きさ
+は12Q（$=$ 3mm $\approx$ 8.5pt）とする．本文は二段組とし，1行が27文字，
+段間が2文字（$27 \times 2 + 2 = 56$文字）とする．行数47行，行間は
+75\%（行送り175\%）とする．これらの値から版面の大きさを計算すると幅
+168mm，高さ255.5mmとなる．
 
- \section{おわりに}
+この版面をA4用紙に収める場合，例えば，上下の余白は同じにして天（上部）
+27.75mm，地（27.75mm），左右の余白はノドを多めに取りノド（内側）25mm，
+小口(外側）17mmとすればよい．
+
+本スタイルファイルでは，この大きさを\texttt{geometory}パッケージを用い
+て設定している．
+
+また，行間についてはjsarticleのデフォルトを用いている．
+
+ただし，版面の高さは\texttt{heightrounded}オプションで
+補正した．\cmd{textheight}を\LaTeX の\cmd{baselineskip}の整数倍と
+\cmd{topskip}の値に基づき，指定した版面に収まるように補正する機能．この
+結果，実際には反面の高さが2mm程度小さくなり，下の余白は24.5mm程度に広が
+る．
+
+\section{おわりに}
 この文書で述べた以外の図や表の挿入などは\texttt{jsarticle}の機能をその
 まま利用することができる．詳しい使い方は・・・を参照すること．
+
+このサンプルとほぼ同じ書式を設定したwordファイルを同梱する．\LaTeX と
+wordで同じ書式が必要になる場合が多いと思われるので，活用していただきた
+い．
+
+寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
+住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
+のポンポコピーのポンポコナーの長久命の長助．
+
 \section{制限事項}
 jsarticleで利用できる文字サイズオプションのうち，一部には対応できてい
 ない．詳しくは\texttt{aiitarticle.sty}ファイルを参照すること．
@@ -174,5 +198,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 ４\par \noindent ４５\par
 \noindent ４６\par \noindent ４７\underline{□□□□□}\par
 %\noindent ４８\par \noindent ９\par \noindent ５０\par
+
+\layout
 
 \end{document}

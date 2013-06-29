@@ -5,31 +5,36 @@
 %% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 基本版面
+% 版面と余白
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 版面（A4）210mm×297mm
+%      | 版面(A) | 用紙(B) | 余白計(A-B)
+% -------------------------------------
+% 幅   | 168  mm |   210mm |       42mm
+% 高さ | 244.5mm |   297mm |       48mm ※
+% -------------------------------------
 
 % 余白
 % ---------------------
-% 天（上余白）    | 30mm
-% 地（下余白）    | 18mm
-% ノド（内側余白）| 24mm
-% 小口（外側余白）| 18mm
+% 天（上余白）    | 27.75mm
+% 地（下余白）    | 27.75mm ※
+% ノド（内側余白）| 25mm
+% 小口（外側余白）| 17mm
 % ---------------------
-%
-% 版面（A4）
-% ------------
-% 幅   | 168mm
-% 高さ | 255.5mm
-% ------------
-% ※高さは\baselineskipの整数倍＋\topskipに補正し242mmほどになる．
+
+% ※高さの補正
+%   高さは\baselineskipの整数倍＋\topskipに補正しする．
 %   この補正により，footnoteの下側が揃う（しないとはみ出る）．
+%242mmほどになる．
 
 \usepackage[
-  top=30truemm,	      % 天（上余白）
-  inner=24truemm,     % ノド（内側余白）
-  bottom=22.5truemm,  % 地（下余白）
-  outer=18truemm,     % 小口（外側余白）
+%  top=27.75truemm,
+  inner=24truemm,
+  textwidth=168truemm,
+  textheight=244.5truemm,
   heightrounded,      % ※高さの補正
+  centering,
   dvipdfm]{geometry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,34 +131,33 @@
     %% 和文標題
     \ifx\@title\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\LARGE \@title \par}
+      \LARGE \@title \par
     \fi
     %Y 和文著者名
     \ifx\@author\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\Large \@author \par}
+      \Large \@author \par
     \fi
     %% 英文標題
     \ifx\@etitle\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\LARGE \@etitle \par}
+      \LARGE \@etitle \par
     \fi
     %% 英文著者名
     \ifx\@eauthor\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\large \@eauthor}
+      \large \@eauthor
     \fi
     %% 概要
     \ifx\@abstractbox\@undefined\else
-      \vskip\baselineskip % 1行あき
-      \nlines{\box\@abstractbox} % 概要の内容
+      \vskip\baselineskip		% 1行あき
+      \centerline{\box\@abstractbox}	% 概要の内容
     \fi
     %% キーワード
     \ifx\@keywords\@undefined\else
-      \nlines{%!!
-        \parbox
-          {\abstractwidth}
-          {\textbf{Keywords:} \@keywords}}
+      \parbox
+        {\abstractwidth}
+        {\textbf{Keywords:} \@keywords}
     \fi
   \end{center}
 }

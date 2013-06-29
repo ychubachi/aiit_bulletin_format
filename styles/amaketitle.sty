@@ -24,7 +24,7 @@
 %
 % \maketitleを再定義
 %
-\renewcommand{\maketitle}{\par
+\renewcommand{\maketitle}[1][0pt]{\par
   \begingroup
     %% thanksのためのfootnoteの書式
     \renewcommand\thefootnote{\arabic{footnote})} % 番号の書式 ex: 1)
@@ -38,7 +38,7 @@
     %% タイトルを出力
     \twocolumn[
       \@maketitle			% タイトルを出力
-      \vskip 0.5\baselineskip		% ※twocolumn後の空白を調整
+      \vskip #1				% ※twocolumn後の空白を調整
     ]
     %% 脚注の出力
     \@makereceivedon			% 受領日を脚注に出力

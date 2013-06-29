@@ -10,14 +10,23 @@
 \newcommand{\cmd}[1]{\texttt{\symbol{"5C}#1}} %"
 \usepackage{layout}
 
+%% タイトルを設定してください
 \title{\LaTeX の新クラスファイル\texttt{jsarticle}を拡張した\\
-論文向けスタイルパッケージ
+論文向けスタイルパッケージ}
+\author{
+  中鉢 欣秀
+  \thanks{産業技術大学院大学/Advanced Institute of Industrial
+  Technology}
+  産技 花子
+  \thanks{公立大学法人首都大学東京/Tokyo Metropolitan University}
 }
-\author{中鉢 欣秀 \thanks{産業技術大学院大学/Advanced Institute of
-Industrial Technology} 産技 花子
-\thanks{公立大学法人首都大学東京/Tokyo Metropolitan University}}
 \etitle{English Title}
-\eauthor{Yoshihide Chubachi \thanksmark[1] Hanako Sangi \thanksmark[2]}
+\eauthor{
+  Yoshihide Chubachi
+  \thanksmark[1]
+  Hanako Sangi
+  \thanksmark[2]
+}
 \begin{abstract}
  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
  molestie ligula a diam hendrerit, id vulputate est
@@ -28,32 +37,33 @@ Industrial Technology} 産技 花子
  a commodo orci. Curabitur luctus viverra auctor. 
 \end{abstract}
 \keywords{AIIT, bulletin, 2013}
+\receivedon{2013-06-29}
 
 \begin{document}
-
-%＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 \maketitle
+
 \section{はじめに}
- この文書では\LaTeX の新クラスファイル\texttt{jsarticle}を基に作成した
- スタイルファイル\texttt{ajsarticle} について述べる．論文のスタイルとし
- て一般的な，タ イトル1段組，本文は左右2段組に対応している．
+この文書では\LaTeX の新クラスファイル\texttt{jsarticle}を基に作成した
+スタイルファイル\texttt{ajsarticle} について述べる．論文のスタイルとし
+て一般的なタイトル1段組，本文2段組に対応している．
 
 \texttt{ajsarticle}では和文に加えて英文の表題，著者名と，概要，キーワー
- ドを出力できるようにした．また，明示的に「行取り」を指定できるマクロ
- \cmd{nlines}を追加し，二段組の左右の行が揃うことをより徹底した．
+ドを出力できるようにした．また，明示的に「行取り」を指定できるマクロ
+\cmd{nlines}を追加し，二段組の左右の行が揃うことをより徹底した．
 
 また，本稿では日本語を主体とする文書におけるマージンの設定を
- \texttt{geometry}パッケージを利用して行う方法についても述べる．特に，
- 反面の高さの自動補正について解説する \footnote{補正により，脚注を用いても\underline{行の下側が左右の段で揃う．}}．
+\texttt{geometry}パッケージを利用して行う方法についても述べる．特に，反
+面の高さの自動補正について解説する\footnote{補正により，脚注を用いても
+\underline{行の下側が左右の段で揃う．}}．
 
- 標準的なクラスファイルに最低限の拡張を施し，より美しく，実用的なレイア
- ウトを実現することを狙う．
-\section{スタイルの定義}
+標準的なクラスファイルに最低限の拡張を施し，より美しく，実用的なレイア
+ウトを実現することを狙う．
+\section{コマンドの追加と再定義}
 \subsection{英文表題}
 
 英文の表題とキーワードのために，\cmd{etitle}，\cmd{eauthor}，
-\cmd{keywords}コマンドを追加した．\cmd{maketitle}を用いることでこれら
-を含むタイトルを出力できる．なお，\texttt{jsarticle}が標準で備える
+\cmd{keywords}コマンドを追加した．\cmd{maketitle}を用いることでこれらを
+含むタイトルを出力できる．なお，\texttt{jsarticle}が標準で備える
 \cmd{maketitle}を完全に再定義しているので，1段組には対応していない．
 
 著者名に所属を記載する場合は\cmd{thanks}を使う．また，英文の著者名で所
@@ -78,6 +88,7 @@ Industrial Technology} 産技 花子
 自動的に3行取りが行われ，数式を出力したあとでも左右の段で行が揃ってい
 ることが分かる．必要に応じて利用して欲しい．
 
+\section{レイアウトの設定}
 \subsection{版面と余白の設置}
 日本語を主体とする文書の場合，まず版面のサイズを計算する．文字の大きさ
 は12Q（$=$ 3mm $\approx$ 8.5pt）とする．本文は二段組とし，1行が27文字，

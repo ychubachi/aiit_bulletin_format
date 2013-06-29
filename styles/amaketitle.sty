@@ -15,7 +15,6 @@
     \global\setbox\@abstractbox\hbox\bgroup % 次の\egroupまでをboxに登録
     \begin{minipage}[b]{\abstractwidth} % ミニページの幅を設定
     \nlines{\large\centering \textbf{Abstract}\par} % 概要の表題
-    \small     
   }
   %% 概要環境の終了
   {
@@ -68,17 +67,17 @@
     %% 和文標題
     \ifx\@title\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\LARGE \@title \par}
+      \nlines{\LARGE \@title}
     \fi
     %Y 和文著者名
     \ifx\@author\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\Large \@author \par}
+      \nlines{\Large \@author}
     \fi
     %% 英文標題
     \ifx\@etitle\@undefined\else
       \vskip\baselineskip % 1行あき
-      \nlines{\LARGE \@etitle \par}
+      \nlines{\LARGE \@etitle}
     \fi
     %% 英文著者名
     \ifx\@eauthor\@undefined\else

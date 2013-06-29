@@ -21,6 +21,15 @@
     \end{minipage}\egroup
   }
 
+% 受付日を出力するための命令定義
+\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
+\newcommand*{\makereceivedon}{
+  \begingroup
+    \renewcommand\thefootnote{} % 番号の書式を付けない
+    \footnotetext{Received on \@receivedon.}
+  \endgroup
+}
+
 %
 % \maketitleを再定義します
 %
@@ -40,7 +49,9 @@
       \@maketitle			% タイトルを出力
       \vskip 0.5\baselineskip		% ※twocolumn後の空白を調整
     ]
-    \@thanks % 所属をfootnoteに出力
+    %% 脚注の出力
+    \makereceivedon			% 受領日を脚注に出力
+    \@thanks				% 所属をfootnoteに出力
     %% footnote番号の設定
     \setcounter{footnote}{0}		% footnote番号を再初期化します
     %% ページ番号の制御
@@ -96,6 +107,8 @@
       }
     \fi
   \end{center}
+  %% 所属
+  \makereceivedon
 }
 
 %% \thanksのマークだけを出力するコマンド

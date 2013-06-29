@@ -6,6 +6,7 @@
 \newcommand*{\eauthor}[1]{\gdef\@eauthor{#1}}	% 英文著者名
 \newcommand*{\keywords}[1]{\gdef\@keywords{#1}}	% キーワード
 \newlength{\abstractwidth}			% 概要の横幅
+\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
 
 %% 概要を登録するための命令を定義
 \renewenvironment{abstract}
@@ -41,7 +42,7 @@
       \vskip 0.5\baselineskip		% ※twocolumn後の空白を調整
     ]
     %% 脚注の出力
-    \makereceivedon			% 受領日を脚注に出力
+    \@makereceivedon			% 受領日を脚注に出力
     \@thanks				% 所属をfootnoteに出力
     %% footnote番号の設定
     \setcounter{footnote}{0}		% footnote番号を再初期化します
@@ -98,8 +99,6 @@
       }
     \fi
   \end{center}
-  %% 所属
-  \makereceivedon
 }
 
 %% \thanksのマークだけを出力するコマンド
@@ -108,10 +107,12 @@
 }
 
 % 受付日を出力するための命令定義
-\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
-\newcommand*{\makereceivedon}{
-  \begingroup
-    \renewcommand\thefootnote{} % 番号の書式を付けない
-    \footnotetext{Received on \@receivedon.}
-  \endgroup
+\newcommand*{\@makereceivedon}{
+  %% 所属
+  \ifx\@receivedon\@undefined\else
+    \begingroup
+      \renewcommand\thefootnote{} % 番号の書式を付けない
+      \footnotetext{\textbf{Received on \@receivedon.}}
+    \endgroup
+  \fi
 }

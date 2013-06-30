@@ -1,19 +1,47 @@
-% maketitleすると，footerの下部がずれてしまう現象について．
-% 12Q ok, 13Q ok, 14Q ok
-% 9pt NG, 10pt ok, 12pt ok, 13pt ok, 14pt NG, 17pt以上 未調査
-\documentclass[a4j, 12Q, twocolumn, twoside]{jsarticle}
-\usepackage{ajsarticle}
+%% advanced-jsarticleスタイル定義
+%% Y.Chubachi 2012,2013
+%%
+%% TODO: thanksで改行できないか．
+%% TODO: 参考文献をbibtexにする．
+%% TODO: 和文表題をコメントアウトするとエラー．
+%%
+%% 参考
+%% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf
+%%
+
+\documentclass[a4j, twocolumn, twoside, draft]{jsarticle}
+\usepackage{nlines}			% 行取り用パッケージ
+\usepackage{amaketitle}			% タイトル用パッケージ
+
+%%
+%% 版面と余白
+%%
+%% 1行25文字*2段組（段間2文字），1頁40行でレイアウトを設定する例
+%% 高さの補正を行なっている（補正しないと脚注がはみ出る）
+%%
+\usepackage[
+  textwidth=52zw,			% 52文字=25文字+2文字（段間）+25文字
+  textheight=40\baselineskip,		% 40行
+  heightrounded,			% 高さの補正
+  centering,				% 上下左右の余白を均等に設置
+  dvipdfm]{geometry}
+
+%% 概要の横幅
+\setlength{\abstractwidth}{44zw}	% 52字-4字-4字=44字
+
+%% ページ番号
+\pagestyle{empty}
 
 %% 必要に応じてパッケージやマクロをここに追加してください
-%\usepackage[dvipdfmx]{graphicx}	% 図の取り込み(PDF対応)用
 \usepackage{okumacro}			% ルビ・圏点など
 \usepackage{url}
-\newcommand{\cmd}[1]{\texttt{\symbol{"5C}#1}} %"
 \usepackage{layout}
+
+\newcommand{\cmd}[1]{\texttt{\symbol{"5C}#1}} %"
 
 %% タイトルを設定してください
 \title{\LaTeX の新クラスファイル\texttt{jsarticle}を拡張した
-%\\論文向けスタイルパッケージ
+\\論文向けスタイルパッケージ
 }
 \author{
   中鉢 欣秀
@@ -42,7 +70,11 @@
 \receivedon{2013-06-29}
 
 \begin{document}
-\maketitle
+
+%% このオプションは1ページ目の下端を調整するものです．
+%% 0-8ptくらいの範囲で，なるべく大きい数値を選んでください．
+\amaketitle[8pt]
+
 
 \section{はじめに}
 この文書では\LaTeX の新クラスファイル\texttt{jsarticle}を拡張するため
@@ -53,11 +85,6 @@
 ドを出力できるようにした．また，明示的に「行取り」を指定できるマクロ
 \cmd{nlines}を追加し，二段組の左右の行が揃うことをより徹底した．
 
-\nlines{
-\LARGE \LaTeX の新クラス
-\\論文向けスタイルパッケージ
-}
-
 また，本稿では日本語を主体とする文書におけるマージンの設定を
 \texttt{geometry}パッケージを利用して行う方法についても述べる．特に，版
 面の高さの自動補正について解説する\footnote{この補正により，脚注を用い
@@ -65,16 +92,6 @@
 
 標準的なクラスファイルに最低限の拡張を施し，より美しく，実用的なレイア
 ウトを実現することを狙う．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
 
 \section{コマンドの追加と再定義}
 \subsection{英文表題}
@@ -85,64 +102,30 @@
 属を参照する\cmd{thanksmark} コマンドを定義した．
 また，原稿の受領日を指定する
 \cmd{receivedon}を追加した．
-
-\cmd{maketitle}を用いることでこれらを含むタ
+新規に追加した\cmd{amaketitle}を用いることでこれらを含むタ
 イトルを出力できる．
-なお，\texttt{jsarticle}が標準で備える\cmd{maketitle}を完全に再定義して
-いるので1段組には対応していない．
-使い方はこの
-\texttt{format.tex}を参考にされたい．なお，所属と受領日は脚注に出力される．
-
 \subsection{行取りマクロの利用方法}
 行取りとは，文字以外の図や数式を配置する際，上下の空白を調整して行数に
 揃えることである．
 
 \texttt{jsarticle}は基本的には自動で行取りを行なって
 くれるが，それでも時々ずれることがある．そこで，明示的に行取りを指定す
-るマクロ\cmd{nlines}を作成した．数式に対して\cmd{nlines}を使用した例を
-以下に示す．
+るマクロ\cmd{nlines}を作成した．
 
-\nlines{
-  \begin{eqnarray}
-    a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
-  \end{eqnarray} 
-}
+\subsection{版面と余白}
+日本語の文書の場合，行数と字数を設定した後，紙面に配置をするという手順
+で余白（マージン）を決めるのが望ましい．このファイルでは
+\texttt{geometry}パッケージの\texttt{heightrounded}オプションを用いて
+この設定をしているので参考にされたい．
 
-自動的に3行取りが行われ，数式を出力したあとでも左右の段で行が揃ってい
-ることが分かる．本スタイルでは表題の行取りにこのマクロを使用している．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
-
-寿限無寿限無五劫の摺り切れ海砂利水魚の水行末雲来末風来末．食う寝る所に
-住む所藪柑子ブラコウジ．パイポパイポパイポのシューリンガングーリンダイ
-のポンポコピーのポンポコナーの長久命の長助．
+また，\cmd{amaketitle}にはオプションがあり，タイトルと本文との間に
+\LaTeX が自動で挿入するスペースを調整できる．この値をうまく調整すれば，
+表題のあるページに脚注があっても，その下端を左右の段で揃えることができ
+る．
 
 \section{制限事項}
-jsarticleで利用できる文字サイズオプションのうち，一部には対応できていな
-い．また，Abstract, Keywords:, Received on を日本語にするためのコマンド
-は用意していない．スタイルファイルを直接修正して欲しい．
+また，Abstract, Keywords:, Received on を日本語にするためのコマンドは用
+意していないので，スタイルファイルを直接修正して欲しい．
 
 \section{おわりに}
 この文書で述べた以外の図や表の挿入などは\texttt{jsarticle}の機能をその
@@ -160,7 +143,17 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 ここに脚注を設定する\footnote{当然，ここも\underline{左右が揃う}．}．
 
 \section{\cmd{nlines}の効果}
-\cmd{nlines}を使わないで数式を出力した例．
+数式に対して\cmd{nlines}を使用した例を
+以下に示す．
+
+\nlines{
+  \begin{eqnarray}
+    a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
+  \end{eqnarray} 
+}
+
+自動的に3行取りが行われ，数式を出力したあとでも左右の段で行が揃う．
+\cmd{nlines}を使わないで数式を出力した例を以下に示す．
 
   \begin{eqnarray}
     a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
@@ -181,7 +174,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 \newpage
 \noindent １２３４５６７８９０
 １２３４５６７８９０
-１２３４５６７%８９０
+１２３４５%６７%８９０
 \par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
 \noindent ６\par \noindent ７\par \noindent ８\par \noindent ９\par \noindent ０\par
 \noindent １１\par \noindent １２\par \noindent １３\par \noindent １
@@ -196,29 +189,26 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 ４\par \noindent ３５\par
 \noindent ３６\par \noindent ３７\par \noindent ３８\par \noindent ３
 ９\par \noindent ４０\par
-\noindent ４１\par \noindent ４２\par \noindent ４３\par \noindent ４
-４\par \noindent ４５\par
-\noindent ４６\par \noindent ４７\underline{□□□□□}\par
-%\noindent ４８\par \noindent ９\par \noindent ５０\par
-
-% \layout % レイアウトパッケージ参照
-\newpage
+% \noindent ４１\par \noindent ４２\par \noindent ４３\par \noindent ４
+% ４\par \noindent ４５\par
+% \noindent ４６\par \noindent ４７\underline{□□□□□}\par
+% \noindent ４８\par \noindent ９\par \noindent ５０\par
 
 \section{版面の設計}
-\subsection{はじめに}
-  理系の論文の原稿は伝統的に\LaTeX で版組することが多いが，近年ではMS
-  Wordで作成する機会も増えてきた．論文集などでは両者で共通のフォーマッ
-  トを用意して，便宜をはかるところも多い．
+% \subsection{はじめに}
+%   理系の論文の原稿は伝統的に\LaTeX で版組することが多いが，近年ではMS
+%   Wordで作成する機会も増えてきた．論文集などでは両者で共通のフォーマッ
+%   トを用意して，便宜をはかるところも多い．
 
-  \LaTeX にしてもWordにしても，しっかりとしたフォーマットを0から作成す
-  るのは大変である．\LaTeX のクラスファイルを作るのは\TeX の深い理解が
-  必要であり，Word でテンプレートファイルを作成するにはある種の職人技が
-  求められる．
+%   \LaTeX にしてもWordにしても，しっかりとしたフォーマットを0から作成す
+%   るのは大変である．\LaTeX のクラスファイルを作るのは\TeX の深い理解が
+%   必要であり，Word でテンプレートファイルを作成するにはある種の職人技が
+%   求められる．
 
-  そこで，できるだけ少ない手間で両者共通のフォーマットを作成する方法を
-  探ることにする．方針は\LaTeX の新しい標準的なクラスファイルである
-  \texttt{jsarticle}クラスを基本とし，他に必要なパラメータを設定する．
-  Wordはこれにあうように設定する．
+%   そこで，できるだけ少ない手間で両者共通のフォーマットを作成する方法を
+%   探ることにする．方針は\LaTeX の新しい標準的なクラスファイルである
+%   \texttt{jsarticle}クラスを基本とし，他に必要なパラメータを設定する．
+%   Wordはこれにあうように設定する．
 
 \subsection{文字サイズ}
 
@@ -247,8 +237,6 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
   はHを用いる．
 \subsection{判型・左右の余白と字詰と字間}
 
-
-\subsection{行間}
 レイアウトのベースはjsarticleに12Qオプションを設定したものを用いている．
 文字のサイズは12Q（$=$ 3mm $\approx$ 8.5pt）になる．レイアウトのカスタ
 マイズには\texttt{geometory}パッケージを用いた．
@@ -284,7 +272,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 }
   となり，ぴたりと収まる．
 
-
+\subsection{行間}
 次に，
 縦の長さは，行数47行，行間を75\%（行送り175\%）とすると，高さは$3mm
 \times 175\% \times 46 + 3mm = 244.5mm$ となる．
@@ -314,7 +302,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
   実際には，\texttt{jsarticle}クラスで12Qオプションを設定した場合の行送り
   は\the\baselineskip であり，拡大率は$\frac{\the\mag}{1000}$であるから，
   \[
-    16 \times \frac{1}{72.27} inch \times 25.4 mm/inch \times
+    16 pt \times \frac{1}{72.27} inch \times 25.4 mm/inch \times
     \frac{923}{1000} \approx 5.190 mm
   \]
   となる．これは，二分四分ほぼ近いものの，僅かな誤差がある．行数を47行
@@ -334,27 +322,14 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 175\%よりもわずかに少ない．このままだと，脚注等の下側が本文よりもはみ出
 る格好になる．
 
-そこで，版面の高さを\texttt{geometory}パッケージの
-\texttt{heightrounded}オプションで補正した．これは\cmd{textheight}を
-\LaTeX の\cmd{baselineskip}の整数倍と\cmd{topskip}の値に基づき，指定し
-た版面に収まるように補正する機能である．この結果，実際には版面の高さは
-2mm程度小さくなる．
+%そこで，版面の高さを\texttt{geometory}パッケージの
+%\texttt{heightrounded}
+% オプションで補正した．これは\cmd{textheight} を
+% \LaTeX の\cmd{baselineskip}の整数倍と\cmd{topskip}の値に基づき，指定し
+% た版面に収まるように補正する機能である．この結果，実際には版面の高さは
+% 2mm程度小さくなる．
 
   
-\subsection{実際の設定}
-
-  以上の考察から，実際の設定は次のとおりとした．
-
-{\small \begin{verbatim} \documentclass[a4j,12Q,twocolumn,twoside]{jsarticle}
-\usepackage[
-  top=30mm,          % 天（上余白）
-  bottom=22.5truemm, % 地（下余白）
-  inner=24mm,        % ノド（内側余白）
-  outer=18truemm,    % 小口（外側余白）
-  dvipdfm]{geometry}
-\end{verbatim}
-}
-
 \subsection{二分あきの設定}
   baselinestretch に倍率を設定し，行間を二分あきにすることを検討する．
   
@@ -372,34 +347,33 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 
   ただし，実際にこの設定を行ったところ，節の見出しなどで大きい文字を使
   うと左右の段が揃わない問題が発生する．
-\section{TODO}
 
-% 文字サイズ・行間の詳細な計算
-% ----------------------
+\subsection{9ptについて}
+jsarticleの標準である10ptオプションでは，文字のサイズが13Q（9.21bp）に
+なるように調整されます．
 
-% jsarticleの標準である10ptオプションでは，文字のサイズが13Q（9.21bp）になるように調整されます．
-% 9ptオプションを設定すると行送りは15ptになります．15pt * 1/7.27インチ * 25.4mm / 0.25mm = 約21.085Hです．
+jsarticleのオプションで9ptの設定をすると，内部では10ptで版組し，これを
+913/1000倍することで求める出力を得ます．
 
-% jsarticleのオプションで9ptの設定をすると，内部では10ptで版組し，これを913/1000倍することで求める出力を得ます．
+文字のサイズは13Qに913/1000をかけて11.869Qとなります（これは約8.4bpです）．
 
-% よって，文字のサイズは13Qに913/1000をかけて11.869Qとなります（これは約8.4bpです）．
-% 行送りは約21.085Hに913/1000をかけて19.251Hとなりますから，行間は19.251-11.869=7.382Hとなります．
+9ptオプションを設定すると行送りは15ptになります．15pt * 1/7.27インチ *
+25.4mm / 0.25mm = 約21.085Hです．これに913/1000をかけて19.251Hとなりま
+すから，行間は19.251-11.869=7.382Hが実際の行送りとなります．
 
 % これをInDesignで再現したところ，一致しました．
 
-% Wordを利用した設定
-% ---------------
-
-% このjsarticleで作製したスタイルにほぼ一致するように，Wordのスタイルを設定しました．
-
-% Wordではフォントサイズを8.5bpとしています（8.4bpが設定できなかったため）．
-
-% 今後の作業
-% --------
-
-% LibreOfficeのWriterへの対応を予定しています．
-
-% 12Q=8.5039ptであるから，jsarticleの12Qオプションを使用したほうがよいかもしれない．
-
+ % \clearpage
+ % \begin{figure}
+ % %\setlayoutscale{0.4}
+ % \layout % レイアウトパッケージ参照
+ % \caption{The footnote parameter layout} \label{fig:fp}
+ % \end{figure}
 
 \end{document}
+
+% ↓でUnderfullがでます
+%  \nlines{
+%  \LARGE \LaTeX の新クラス
+% 論文向けスタイルパッケージ
+%  }

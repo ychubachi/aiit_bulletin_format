@@ -44,7 +44,7 @@
 %% 英文アブストラクト
 \begin{abstract}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet
-hendrerit dui at . Nunc blandit egestas felis non aliquet. Proin
+hendrerit dui at. Nunc blandit egestas felis non aliquet. Proin
 malesuada dictum lacus eget elit accumsan, eu convallis urna
 malesuada. Donec quis neque erat tempus congue ac eget est. Donec nec
 dolor auctor, laoreet nisi id, tincidunt metus. Nunc eu scelerisque
@@ -79,13 +79,18 @@ Words)
 こと．
 %
 %\subsection{MS Wordの場合}
-また，MS Wordを利用する場合は，スタイルを設定した
-\texttt{.doc}ファイルを別添するのでそちらを用いること．
+また，MS Wordを利用する場合は，別添の\texttt{.docx}ファイルを用いること．
 
 \section{原稿}
+\subsection{カメラレディ原稿}
 原稿は，日本語もしくは英語による完全版下(camera ready)原稿とする．
 製版後の校正は原則として不可能であるため，誤字や脱字がないよう，特に念
 を入れて仕上げる．刷り上がりは，6頁以上が望ましい．
+
+\subsection{余白}
+天地左右余白(マージン)・段間余白(コラムスペース)もこの見本に従う．
+上下の余白には製本時にヘッダとページ番号を挿入するので，空白にしておく
+こと．
 
 \section{標題について}
 \subsection{標題}
@@ -106,11 +111,6 @@ Words)
 
 \section{本文について}
 
-\subsection{余白}
-天地左右余白(マージン)・段間余白(コラムスペース)もこの見本に従う．
-上下の余白には製本時にヘッダとページ番号を挿入するので，空白にしておく
-こと．
-
 \subsection{見出し}
 原稿には，大見出し，中見出しなどを設け，それらを明瞭に区分する．さらに
 細分を要するときは，著者の分類に委ねる．
@@ -118,17 +118,22 @@ Words)
 \subsection{句読点}
 句読点には，全角ピリオド(．)，全角コンマ(，)を用いること．
 
-\subsection{脚注}
-脚注は段組の下部に記載する\footnote{脚注の例}．
-
 \section{参考文献について}
 参考文献は，通し番号とし，本文中では，当該事項または人名などの参考とす
-る後に，\cite{TRA96HuHaCo}，\cite{SICE02Yo}--\cite{Asa02Ar} のように記
-す．文章の末尾に記す必要がある場合には，句読点の前に記す．
+る後に，\cite{okumura}，\cite{takeuchi1986new,IT人材白書%
+2012,sutherland2011scrum} のように記す．文章の末尾に記す必要がある場合
+には，句読点の前に記す．
 
 参考文献は，原則として，雑誌の場合は，著者，標題，雑誌名，巻，号，頁，
 年の順に記す．また，著書の場合は，著者，書名，発行所，発行年の順に記す．
 参考文献例を本文の最後に挙げるので参考されたい．
+
+\subsection{脚注}
+脚注は段組の下部に記載する\footnote{脚注の例}．
+
+\subsection{ルビ・圏点}
+\ruby{難読漢字}{なんどくかんじ}にはルビを振ることができる．また，強調
+したい箇所には\kenten{圏点をつける}ことができる．
 
 \section{図・表について}
 \subsection{図表のキャプション}
@@ -168,25 +173,7 @@ Words)
 \section{おわりに}
 本稿では産業技術大学院大学紀要のフォーマットについて記した．
 
-\begin{thebibliography}{99}
-\bibitem{TRA96HuHaCo} 
-S. Hutchinson, G. D. Hager and P. I. Corke,
-``A Tutorial on Visual Servo Control,''
-{\it IEEE Trans. Robotics and Automation},
-Vol.~12, No.~5, pp.~651--670, 1996.
-%
-\bibitem{SICE02Yo}
-吉川恒夫,
-``ロボット技術,''
-計測と制御, Vol.~41, No.~1, pp.~17--21, 2002.
-%
-\bibitem{Joh06SpHuVi} 
-M. W. Spong, S. Hutchinson and M. Vidyasagar, 
-{\it Robot Modeling and Control}, 
-John Wiley \& Sons, 2006. 
-%
-\bibitem{Asa02Ar}
-有本 卓, 新版 ロボットの力学と制御, 朝倉書店, 2002. 
-\end{thebibliography}
+\bibliographystyle{junsrt}
+\bibliography{bibliography}
 
 \end{document}

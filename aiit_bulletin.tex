@@ -1,11 +1,10 @@
-% maketitleすると，footerの下部がずれてしまう現象について．
-% 12Q ok, 13Q ok, 14Q ok
-% 9pt NG, 10pt ok, 12pt ok, 13pt ok, 14pt NG, 17pt以上 未調査
+%% 産業技術大学院大学紀要フォーマット
+%% Created: 2013-06-30 Y.Chubachi
 \documentclass[a4j, 12Q, twocolumn, twoside]{jsarticle}
 \usepackage{ajsarticle}
 
 %%
-%% 必要に応じてパッケージやマクロをここに追加してください
+%% 1.必要に応じてパッケージやマクロをここに追加
 %%
 
 \usepackage[dvipdfmx]{graphicx}		% 図の取り込み(PDF対応)用
@@ -13,15 +12,16 @@
 \usepackage{url}			% URLの出力
 
 %%
-%% 英語論文の場合は下記2行のコメントを外してください
+%% 2.英語論文の場合は下記2行のコメントを外してください
 %%
 
 % \renewcommand{\tablename}{Table~}
 % \renewcommand{\figurename}{Fig.~}
 
 %%
-%% タイトルを設定してください
-%%
+%% 3.タイトルを設定してください
+%%   本文が英文の場合は，\etitle, \eauthorを削除し，\titleと\autherに
+%%   英文を記入してください．
 
 %% 和文表題
 \title{産技大紀要フォーマットについて}
@@ -33,6 +33,7 @@
   産技 花子
   \thanks{公立大学法人首都大学東京/Tokyo Metropolitan University}
 }
+
 %% 英文表題
 \etitle{Style and Layout of an AIIT Bulletin}
 %% 英文著者名
@@ -60,17 +61,19 @@ Words)
 \receivedon{2013-09-30}
 
 \begin{document}
+%%
+%% 4.タイトルを出力
+%%
+%% \maketiteleにある[5pt]というオプションはタイトルと本文の間隔
+%% を調整するものです．1ページ目の最下端の行が左右の段で揃わない
+%% とき，この値を0pt-8ptくらいの範囲で調整してください．
+\amaketitle[5pt]
 
-% この下の\maketiteleにある[5pt]というオプションはタイトルと本文の間隔
-% を調整するものです．
-% 1ページ目の最下端の行が左右の段で揃わないとき，この値を0pt-6ptくらい
-% の範囲で調整してください．
-\maketitle[5pt]
-
+%%
+%% 5.本文
+%%
 \section{はじめに}
 本稿では産業技術大学院大学紀要のフォーマットについて記す．
-
-TODO: thanksで改行できないか．参考文献をbibtexにする．
 
 \section{執筆方法}
 %\subsection{\LaTeX の場合}
@@ -91,10 +94,6 @@ TODO: thanksで改行できないか．参考文献をbibtexにする．
 標題は和文ならびに英文とする．英文原稿の場合は，和文表題を記述する箇所
 に英文標題を記述し，英文標題の箇所は削除すること．
 
-\subsection{著者名・所属}
-著者名も英文による原稿の場合は，通常の和文著者名のところに英文で記述し，
-英文著者名のところは削除すること．所属も英文で記述すること．
-
 \subsection{アブストラクト・キーワード}
 和文ではなく英文で記述すること．アブストラクトは80語程度とし，キーワー
 ドは5つ程度とする．
@@ -102,6 +101,10 @@ TODO: thanksで改行できないか．参考文献をbibtexにする．
 \subsection{標題等の割付}
 見本に従って，[和文標題，和文著者名，英文標題，英文著者名，英文アブスト
 ラクト，英文キーワード]及び[受領日，所属]の割付を行う．
+
+\subsection{英文原稿の場合}
+英文による原稿の場合は，和文著者名のところに英文で記述し，英文著者名の
+ところは削除すること．所属も英文で記述すること．
 
 \section{本文について}
 

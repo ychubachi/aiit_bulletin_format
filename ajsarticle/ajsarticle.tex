@@ -1,15 +1,41 @@
-% TODO: thanksで改行できないか．参考文献をbibtexにする．和文表題をコメン
-% トアウトするとエラー．
+%% advanced-jsarticleスタイル定義
+%% Y.Chubachi 2012,2013
+%%
+%% TODO: thanksで改行できないか．
+%% TODO: 参考文献をbibtexにする．
+%% TODO: 和文表題をコメントアウトするとエラー．
+%%
+%% 参考
+%% http://ea3pch.yz.yamagata-u.ac.jp/member/sumio/tex/styleuse.pdf
+%%
 
-\documentclass[a4j, 12Q, twocolumn, twoside, draft]{jsarticle}
-\usepackage{ajsarticle}
+\documentclass[a4j, twocolumn, twoside, draft]{jsarticle}
+\usepackage{amaketitle}			% タイトル用パッケージ
+
+%%
+%% 版面と余白
+%%
+%% 1行25文字*2段組（段間2文字），1頁40行でレイアウトを設定する例
+%%
+\usepackage[
+  textwidth=52zw,			% 52文字=25文字+2文字（段間）+25文字
+  textheight=40\baselineskip,		% 40行
+  heightrounded,			% ※高さの補正
+  centering,				% 上下左右の余白を均等に設置
+  dvipdfm]{geometry}
+
+%% 概要の横幅
+\setlength{\abstractwidth}{44zw}	% 52字-4字-4字=44字
+
+%% ページ番号
+\pagestyle{empty}
 
 %% 必要に応じてパッケージやマクロをここに追加してください
-%\usepackage[dvipdfmx]{graphicx}	% 図の取り込み(PDF対応)用
 \usepackage{okumacro}			% ルビ・圏点など
 \usepackage{url}
-\newcommand{\cmd}[1]{\texttt{\symbol{"5C}#1}} %"
 \usepackage{layout}
+
+\newcommand{\cmd}[1]{\texttt{\symbol{"5C}#1}} %"
 
 %% タイトルを設定してください
 \title{\LaTeX の新クラスファイル\texttt{jsarticle}を拡張した
@@ -42,8 +68,9 @@
 \receivedon{2013-06-29}
 
 \begin{document}
-% このオプションは1ページ目の下端を調整するものです．
-% 0-8ptくらいの範囲で，なるべく大きい数値を選んでください．
+
+%% このオプションは1ページ目の下端を調整するものです．
+%% 0-8ptくらいの範囲で，なるべく大きい数値を選んでください．
 \amaketitle[8pt]
 
 
@@ -73,34 +100,30 @@
 属を参照する\cmd{thanksmark} コマンドを定義した．
 また，原稿の受領日を指定する
 \cmd{receivedon}を追加した．
-
 新規に追加した\cmd{amaketitle}を用いることでこれらを含むタ
-イトルを出力できる．このコマンドにはオプションがあり，タイトルと本文と
-の間に\LaTeX が自動で挿入するスペースを調整できる．この値をうまく調整
-すれば，表題のあるページの下端を左右の段で揃えることができる．
-
+イトルを出力できる．
 \subsection{行取りマクロの利用方法}
 行取りとは，文字以外の図や数式を配置する際，上下の空白を調整して行数に
 揃えることである．
 
 \texttt{jsarticle}は基本的には自動で行取りを行なって
 くれるが，それでも時々ずれることがある．そこで，明示的に行取りを指定す
-るマクロ\cmd{nlines}を作成した．数式に対して\cmd{nlines}を使用した例を
-以下に示す．
+るマクロ\cmd{nlines}を作成した．
 
-\nlines{
-  \begin{eqnarray}
-    a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
-  \end{eqnarray} 
-}
+\subsection{版面と余白}
+日本語の文書の場合，行数と字数を設定した後，紙面に配置をするという手順
+で余白（マージン）を決めるのが望ましい．このファイルでは
+\texttt{geometry}パッケージの\texttt{heightrounded}オプションを用いて
+この設定をしているので参考にされたい．
 
-自動的に3行取りが行われ，数式を出力したあとでも左右の段で行が揃ってい
-ることが分かる．
+また，\cmd{amaketitle}にはオプションがあり，タイトルと本文との間に
+\LaTeX が自動で挿入するスペースを調整できる．この値をうまく調整すれば，
+表題のあるページに脚注があっても，その下端を左右の段で揃えることができ
+る．
 
 \section{制限事項}
-jsarticleで利用できる文字サイズオプションのうち，一部には対応できていな
-い．また，Abstract, Keywords:, Received on を日本語にするためのコマンド
-は用意していない．スタイルファイルを直接修正して欲しい．
+また，Abstract, Keywords:, Received on を日本語にするためのコマンドは用
+意していないので，スタイルファイルを直接修正して欲しい．
 
 \section{おわりに}
 この文書で述べた以外の図や表の挿入などは\texttt{jsarticle}の機能をその
@@ -118,7 +141,17 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 ここに脚注を設定する\footnote{当然，ここも\underline{左右が揃う}．}．
 
 \section{\cmd{nlines}の効果}
-\cmd{nlines}を使わないで数式を出力した例．
+数式に対して\cmd{nlines}を使用した例を
+以下に示す．
+
+\nlines{
+  \begin{eqnarray}
+    a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
+  \end{eqnarray} 
+}
+
+自動的に3行取りが行われ，数式を出力したあとでも左右の段で行が揃う．
+\cmd{nlines}を使わないで数式を出力した例を以下に示す．
 
   \begin{eqnarray}
     a_0=\frac{1}{\pi}\left[\int_0^{\pi} a \sin kt \cdot dt + \int_{\pi}^{2\pi} (-a) \sin kt \cdot dt\right]=0
@@ -139,7 +172,7 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 \newpage
 \noindent １２３４５６７８９０
 １２３４５６７８９０
-１２３４５６７%８９０
+１２３４５%６７%８９０
 \par \noindent ２\par \noindent ３\par \noindent ４\par \noindent ５\par
 \noindent ６\par \noindent ７\par \noindent ８\par \noindent ９\par \noindent ０\par
 \noindent １１\par \noindent １２\par \noindent １３\par \noindent １
@@ -154,10 +187,10 @@ jsarticleで利用できる文字サイズオプションのうち，一部に�
 ４\par \noindent ３５\par
 \noindent ３６\par \noindent ３７\par \noindent ３８\par \noindent ３
 ９\par \noindent ４０\par
-\noindent ４１\par \noindent ４２\par \noindent ４３\par \noindent ４
-４\par \noindent ４５\par
-\noindent ４６\par \noindent ４７\underline{□□□□□}\par
-%\noindent ４８\par \noindent ９\par \noindent ５０\par
+% \noindent ４１\par \noindent ４２\par \noindent ４３\par \noindent ４
+% ４\par \noindent ４５\par
+% \noindent ４６\par \noindent ４７\underline{□□□□□}\par
+% \noindent ４８\par \noindent ９\par \noindent ５０\par
 
 \section{版面の設計}
 % \subsection{はじめに}

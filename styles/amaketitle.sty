@@ -24,7 +24,7 @@
 %
 % \maketitleを再定義
 %
-\renewcommand{\maketitle}[1][0pt]{\par
+\newcommand{\amaketitle}[1][0pt]{\par
   \begingroup
     %% thanksのためのfootnoteの書式
     \renewcommand\thefootnote{\arabic{footnote})} % 番号の書式 ex: 1)
@@ -37,7 +37,7 @@
     }
     %% タイトルを出力
     \twocolumn[
-      \@maketitle			% タイトルを出力
+      \@amaketitle			% タイトルを出力
       \vskip #1				% ※twocolumn後の空白を調整
     ]
     %% 脚注の出力
@@ -61,7 +61,7 @@
   \global\let\and\relax}
 
 % 標題全体を出力します
-\def\@maketitle{%
+\def\@amaketitle{%
   \let\footnote\thanks			% TODO: いらない？
   \begin{center}
     %% 和文標題

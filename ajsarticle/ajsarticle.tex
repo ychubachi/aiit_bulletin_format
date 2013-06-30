@@ -10,17 +10,19 @@
 %%
 
 \documentclass[a4j, twocolumn, twoside, draft]{jsarticle}
+\usepackage{nlines}			% 行取り用パッケージ
 \usepackage{amaketitle}			% タイトル用パッケージ
 
 %%
 %% 版面と余白
 %%
 %% 1行25文字*2段組（段間2文字），1頁40行でレイアウトを設定する例
+%% 高さの補正を行なっている（補正しないと脚注がはみ出る）
 %%
 \usepackage[
   textwidth=52zw,			% 52文字=25文字+2文字（段間）+25文字
   textheight=40\baselineskip,		% 40行
-  heightrounded,			% ※高さの補正
+  heightrounded,			% 高さの補正
   centering,				% 上下左右の余白を均等に設置
   dvipdfm]{geometry}
 

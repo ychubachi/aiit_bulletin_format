@@ -62,26 +62,26 @@
 
 % 標題全体を出力します
 \def\@amaketitle{%
-  \let\footnote\thanks			% TODO: いらない？
+  %\let\footnote\thanks			% TODO: いらない？
   \begin{center}
     %% 和文標題
     \ifx\@title\@undefined\else
-      \vskip\baselineskip % 1行あき
+      \vskip\baselineskip		% 1行あき
       \nlines{\LARGE \@title}
     \fi
     %Y 和文著者名
     \ifx\@author\@undefined\else
-      \vskip\baselineskip % 1行あき
+      \vskip\baselineskip		% 1行あき
       \nlines{\Large \@author}
     \fi
     %% 英文標題
     \ifx\@etitle\@undefined\else
-      \vskip\baselineskip % 1行あき
+      \vskip\baselineskip		% 1行あき
       \nlines{\LARGE \@etitle}
     \fi
     %% 英文著者名
     \ifx\@eauthor\@undefined\else
-      \vskip\baselineskip % 1行あき
+      \vskip\baselineskip		% 1行あき
       \nlines{\large \@eauthor}
     \fi
     %% 概要
@@ -95,6 +95,7 @@
         \parbox
           {\abstractwidth}
           {\textbf{Keywords:} \@keywords}
+        \vskip\baselineskip		% 1行あき
       }
     \fi
   \end{center}

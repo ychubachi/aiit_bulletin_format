@@ -2,7 +2,7 @@
 
 ## フォントのインストール
 
-LaTeXとWordで同じ字体を使うためにIPAexフォントをインストールしてください．
+LaTeXとWordで同じ字体を使うためにIPAexフォント（2書体パック）をインストールしてください．
 
 http://ipafont.ipa.go.jp/ipaexfont/download.html
 

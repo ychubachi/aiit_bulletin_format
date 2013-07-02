@@ -17,5 +17,7 @@ aiit_bulletin.docxを編集してください．
 ## フォントのインストール
 
 LaTeXとWordで同じ字体を使うためにIPAexフォントをインストールしてください．
+
 http://ipafont.ipa.go.jp/ipaexfont/download.html
+
 ※TeX Live 2012 以降およびW32TeX [2013/06/06] 以降の luatexja.tar.xz には同梱されています．

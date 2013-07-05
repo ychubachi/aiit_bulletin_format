@@ -17,7 +17,7 @@ http://ipafont.ipa.go.jp/ipaexfont/download.html
 ※TeX Live 2012 以降およびW32TeX [2013/06/06] 以降の luatexja.tar.xz に
 は同梱されています．
 
-## ダウンロード方法
+## 利用方法
 
 このページの「Download ZIP」ボタンをクリックしてください．ダウンロード
 したら解凍してください．
@@ -40,6 +40,10 @@ PDFファイルを提出してください．
 ### Wordの場合
 
 .docxファイルとPDFファイルを提出してください．
+
+## 見本
+
+LaTeXでタイプセットしたPDFをaiit_bulletin.pdfに，Wordのものをaiit_bulletin_word.pdfに，両者を対比できるようにしたものをaiit_bulletin_latex_word.pdfとして用意したので参考にしてください．
 
 ## 問い合わせ
 

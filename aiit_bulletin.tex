@@ -2,11 +2,12 @@
 %% 産業技術大学院大学紀要フォーマット
 %% Created: 2013-06-30 Y.Chubachi
 \documentclass[a4j, 12Q, twocolumn, twoside]{jsarticle}
-\usepackage{aiit_bulletin}			% 紀要のスタイル
+\usepackage{aiit_bulletin}		% 紀要のスタイル
 
 %%
 %% 1.必要に応じてパッケージやマクロをここに追加
 %%
+\usepackage{newcent}			% Centuryフォント
 \usepackage[dvipdfmx]{graphicx}		% 図の取り込み(PDF対応)用
 \usepackage{okumacro}			% ルビ・圏点など
 \usepackage{url}			% URLの出力
@@ -28,7 +29,7 @@
 %%
 %% 和文表題
 %% 
-\title{産業技術大学院大学紀要の書式について\\-- 2013年度版 --}
+\title{産業技術大学院大学紀要の書式について\\-- 2013年度（\LaTeX）版 --}
 
 %%
 %% 和文著者名
@@ -47,7 +48,7 @@
 %%
 %% 英文表題
 %%
-\etitle{Style and Layout of an AIIT Bulletin\\-- 2013 --}
+\etitle{Style and Layout of an AIIT Bulletin\\-- 2013 (\LaTeX) --}
 
 %%
 %% 英文著者名
@@ -88,10 +89,11 @@ Words)
 %%
 %% 4.タイトルを出力
 %%
-%% \maketiteleにある[5pt]というオプションはタイトルと本文の間隔
-%% を調整するものです．1ページ目の最下端の行が左右の段で揃わない
-%% とき，この値を0pt-8ptくらいの範囲で調整してください．
-\amaketitle[8pt]
+%% \maketiteleにあるオプション[0pt]はタイトルと本文の間隔
+%% を調整するものです．
+%% 1ページ目の脚注の下端と本文の下端が左右の段で揃わない
+%% とき，この値を0pt〜8ptくらいの範囲で調整してください．
+\amaketitle[-1pt]
 
 %%
 %% 5.本文

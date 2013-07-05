@@ -63,42 +63,42 @@
 % 標題全体を出力します
 \def\@amaketitle{%
   %\let\footnote\thanks			% TODO: いらない？
-  \begin{center}
-    %% 和文標題
-    \ifx\@title\@undefined\else
-      \vskip\baselineskip		% 1行あき
-      \nlines{\LARGE \@title}
-    \fi
-    %Y 和文著者名
-    \ifx\@author\@undefined\else
-      \vskip\baselineskip		% 1行あき
-      \nlines{\Large \@author}
-    \fi
-    %% 英文標題
-    \ifx\@etitle\@undefined\else
-      \vskip\baselineskip		% 1行あき
-      \nlines{\LARGE \@etitle}
-    \fi
-    %% 英文著者名
-    \ifx\@eauthor\@undefined\else
-      \vskip\baselineskip		% 1行あき
-      \nlines{\large \@eauthor}
-    \fi
-    %% 概要
-    \ifx\@abstractbox\@undefined\else
-      \vskip\baselineskip		% 1行あき
-      \nlines{\centerline{\box\@abstractbox}}	% 概要の内容
-    \fi
-    %% キーワード
-    \ifx\@keywords\@undefined\else
-      \nlines{%!!
-        \parbox
-          {\abstractwidth}
-          {\textbf{Keywords:} \@keywords}
-        \vskip\baselineskip		% 1行あき
-      }
-    \fi
-  \end{center}
+  %\vskip 0.5\baselineskip		% 0.5行あき
+  %% 和文標題
+  \ifx\@title\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \LARGE \@title}
+  \fi
+  %% 和文著者名
+  \ifx\@author\@undefined\else
+    \vskip 1\baselineskip		% 1行あき
+    \nlines{\centering \large \@author}
+  \fi
+  %% 英文標題
+  \ifx\@etitle\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \Large \@etitle}
+  \fi
+  %% 英文著者名
+  \ifx\@eauthor\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \@eauthor}
+  \fi
+  %% 概要
+  \ifx\@abstractbox\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \box\@abstractbox}	% 概要の内容
+  \fi
+  %% キーワード
+  \ifx\@keywords\@undefined\else
+    \nlines{%!!
+      \centering
+	\parbox
+        {\abstractwidth}
+        {\textbf{Keywords:} \@keywords}
+    }
+  \fi
+  \vskip 1.5\baselineskip		% 行あき
 }
 
 %% \thanksのマークだけを出力するコマンド

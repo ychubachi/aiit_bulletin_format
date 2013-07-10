@@ -1,8 +1,8 @@
 # 産業技術大学院大学紀要の書式
 
-## 準備作業
+## 準備
 
-## フォントのインストール
+### フォントのインストール
 
 LaTeXとWordで同じ字体を使うためにIPAexフォント（2書体パック）をインストールしてください．
 
@@ -18,7 +18,7 @@ http://ipafont.ipa.go.jp/ipaexfont/download.html
 
 aiit_bulletin.pdfファイルが執筆の要領と印刷見本になりますのでご覧ください．
 
-## 利用方法
+## 執筆方法
 ### LaTeXの場合
 
 aiit_bulletin.texを編集してご利用ください．aiit_bulletin.docxは必要ありません．

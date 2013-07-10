@@ -1,9 +1,3 @@
-aiit_bulletin_format_2013
-=========================
-
-AIIT紀要原稿書式
-v1.0.0-rc2
-
 =======
 # 産業技術大学院大学紀要の書式
 
@@ -19,31 +13,43 @@ http://ipafont.ipa.go.jp/ipaexfont/download.html
 
 ## 利用方法
 
-このページの「Download ZIP」ボタンをクリックしてください．ダウンロード
-したら解凍してください．
+このページの右側のメニューにある「Download ZIP」ボタンをクリックしてく
+ださい．ダウンロードしたら解凍してください．
 
 ### LaTeXの場合
 
-aiit_bulletin.texを編集してください．
+aiit_bulletin.texを編集してご利用ください．*.docxは必要ありません．
 
 ### Wordの場合
 
-aiit_bulletin.docxを編集してください．
+aiit_bulletin.docxを編集してご利用ください．その他のファイルは必要ありません．
 
 ## 提出方法
 
 ### LaTeXの場合
 
-関連するすべてのファイルをzip（またはtar.gz）形式で圧縮したファイルと
-PDFファイルを提出してください．
+下記2つのファイルを提出してください．
+1. 必要なすべてのファイルをzip（またはtar.gz）形式で圧縮したファイル
+2. レイアウトの確認用PDFファイル
 
 ### Wordの場合
 
-.docxファイルとPDFファイルを提出してください．
+下記2つのファイルを提出してください．
+1. *.docxファイルとPDFファイルを提出してください．
+2. レイアウトの確認用PDFファイル（レイアウトの確認用）
 
 ## 見本
 
-LaTeXでタイプセットしたPDFをaiit_bulletin.pdfに，Wordのものをaiit_bulletin_word.pdfに，両者を対比できるようにしたものをaiit_bulletin_latex_word.pdfとして用意したので参考にしてください．
+サンプルのPDFを用意しましたのでご参照ください．
+
+aiit_bulletin.pdf
+: LaTeXでタイプセットしたもの
+
+aiit_bulletin_word.pdf
+: Wordでタイプセットしたもの
+
+aiit_bulletin_latex_word.pdf
+: 両者を対比できるようにしたもの
 
 ## 問い合わせ
 
